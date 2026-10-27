@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Plain Words for Enterprise AI SWE",
+  "version": "1.0.0",
+  "description": "Inofficiell hjälp: håll markören över en knapp i Azure-portalen, Foundry, Copilot Studio eller Power Automate och läs vad den gör.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Plain Words for Enterprise AI SWE",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://portal.azure.com/*",
+        "https://ai.azure.com/*",
+        "https://copilotstudio.microsoft.com/*",
+        "https://make.powerautomate.com/*"
+      ],
+      "js": [
+        "explanations.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://*.reactblade.portal.azure.net/*",
+        "https://ux.console.azure.com/*"
+      ],
+      "js": [
+        "explanations.js",
+        "content.js",
+        "sweep-frame.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ]
+}

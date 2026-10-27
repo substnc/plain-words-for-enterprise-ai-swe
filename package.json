@@ -1,0 +1,12 @@
+{
+  "name": "plain-words-for-enterprise-ai-swe",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Inofficiell hjälp: håll markören över en knapp i Microsoft Azure-portalen och läs vad den gör, på vardaglig svenska.",
+  "scripts": {
+    "test": "node tests/check-texts.js",
+    "sync": "node tests/sync-skipped.js",
+    "zip": "bash tools/bygg-zip.sh",
+    "icons": "python3 tools/make_icons.py"
+  }
+}

@@ -1,0 +1,359 @@
+Plain Words for Enterprise AI SWE: svepets logg
+===============================================
+
+Sajten: portal.azure.com (Microsoft Azure-portalen). Inloggad i Anthons
+Chrome. Svepet bara läser och håller musen över saker. Det skapar, ändrar
+eller tar aldrig bort något i Azure-kontot.
+
+Format per sida/meny:
+  PLATS     sidan (adressen efter #) och var på sidan
+  ÖPPNAS    klick eller hovring, och på vad (ankaret)
+  ANKARE    data-testid (tid), aria-label (al), role, id
+  STATUS    öppnad / gick inte att öppna / inte öppnad (varför)
+
+Stäng varje meny med Esc innan nästa öppnas. Klicka aldrig på knappar som
+skapar, sparar, tar bort, köper eller startar något.
+
+
+Delar som ska förklaras, valda 2026-10-27 innan svepet
+-------------------------------------------------------
+
+Det här är vad en nybörjare möter först och behöver förstå för att kunna
+börja bygga själv. Ordningen är den ordning man oftast möter dem i.
+
+Anthons lista (måste med):
+ 1. Startsidan (Home): rutorna Azure services, Resources (senaste),
+    Navigate och Tools.
+ 2. Sökfältet högst upp: söker bland tjänster, resurser och dokumentation.
+ 3. Vänstermenyn (portalmenyn): hamburgermenyn uppe till vänster och
+    raderna i den (Home, Dashboard, All services, Favorites).
+ 4. Prenumerationer (Subscriptions): listan, och de vanligaste raderna
+    på en prenumerations sida.
+ 5. Resursgrupper (Resource groups): listan, och en resursgrupps sida.
+ 6. Flödet för att skapa en resurs (Create a resource): Marketplace-sidan,
+    och flikarna i ett skapa-formulär (Basics, Tags, Review + create).
+    Bara läsa. Aldrig klicka på Create eller Review + create.
+ 7. Cloud Shell: knappen i toppfältet. Panelen öppnas först efter att jag
+    frågat Anthon, eftersom första gången kan be om att skapa ett
+    lagringskonto (det skulle vara en ändring i kontot).
+ 8. Kostnadsvyn (Cost Management + Billing): översikten, Cost analysis,
+    Budgets.
+
+Tillagt av Claude, för att resten ska gå att förstå:
+ 9. Toppfältet i övrigt: aviseringar (klockan), inställningar (kugghjulet),
+    hjälp, feedback, Copilot och kontomenyn uppe till höger.
+10. Kataloger och prenumerationer (Directories + subscriptions): rutan där
+    man byter konto/organisation. Förvirrar nästan alla nybörjare.
+11. Alla resurser (All resources): listan över allt man har skapat.
+12. Verktygsraden på listsidor (Create, Refresh, Export to CSV, Edit
+    columns, Delete, filter) som ser likadan ut överallt i portalen.
+13. Den gemensamma menyn på varje resurs sida: Overview, Activity log,
+    Access control (IAM), Tags, Settings, Monitoring.
+14. Brödsmulorna (breadcrumbs) högst upp på varje sida, och att sidor
+    öppnas som "blad" (blades) bredvid varandra.
+15. Microsoft Entra ID, bara raden i menyn: var användare och behörigheter
+    finns. Förklaras kort, ingen genomgång av själva sidan.
+
+Tillagt 2026-10-27 på Anthons beslut: tillägget blir en svit för
+Microsofts moln- och AI-verktyg, Plain Words for Enterprise AI SWE. Samma
+nybörjarregel gäller: det man möter först och behöver för att komma igång.
+
+Foundry (ai.azure.com):
+16. Startsidan och projektväljaren: vad ett projekt (project) och en
+    Foundry-resurs är, och hur de hänger ihop med resursgrupper i portalen.
+17. Vänstermenyn i ett projekt: modeller, agenter, lekplatsen (playground),
+    data, utvärdering och inställningar.
+18. Modellkatalogen och att distribuera (deploy) en modell. Bara läsa.
+19. Agenterna: listan och sidan där man bygger en agent. Bara läsa.
+
+Copilot Studio (copilotstudio.microsoft.com):
+20. Startsidan och miljöväljaren (environment).
+21. Vänstermenyn: agenter, skapa, bibliotek, Power Platform-länkar.
+22. En agents sida: översikt, kunskap (knowledge), ämnen (topics),
+    åtgärder (actions), publicera och testa. Bara läsa.
+
+Power Automate (make.powerautomate.com):
+23. Startsidan och miljöväljaren.
+24. Vänstermenyn: skapa, mallar, mina flöden, kopplingar (connectors),
+    lösningar.
+25. Skapa-sidan: automatiska, direkta och schemalagda flöden. Bara läsa.
+
+Medvetet utanför: själva innehållet i enskilda tjänster (virtuella
+maskiner, databaser osv.) utöver den gemensamma menyn i punkt 13.
+
+
+Svep 1
+------
+Inventering 2026-10-27, inloggad i Chrome, portalen på svenska (lang=sv),
+fönster 1440x900. Prenumerations-id och mejl är bortklippta ur loggen.
+
+Allmänt om portalen
+   - Allt efter # i adressen är sidan. location.pathname är alltid "/".
+     Tilläggets href-regler hoppar över #-länkar, så adresser matchas med
+     selectors, till exempel a[href$="itemId/resourcegroups"].
+   - Stabila ankare: portalens egna klassnamn fxs-* (skal), fxc-* (kontroller)
+     och azc-* (verktygsrad). De är skrivna för hand, inte genererade, och
+     samma på alla språk. Id:n som _weave_e_7 och menur1i byts vid varje
+     laddning och används aldrig.
+   - aria-label och text följer portalens språk. Där bara text finns
+     (verktygsraden, inställningsmenyn) skrivs både svenska och engelska
+     mönster. De engelska är inte svepta, eftersom att byta språk vore en
+     ändring i Anthons portalinställningar.
+   - Många sidor ritas i en ram (iframe) från
+     sandbox-N.reactblade.portal.azure.net: listan över resursgrupper och
+     alla resurser, Skapa en resurs, Kostnadsanalys, startsidan i Entra ID.
+     Claude in Chrome kan inte läsa in i ramen (javascript_tool och
+     read_page ser bara själva sidan).
+
+1. Toppfältet
+   PLATS   överst på alla sidor, .fxs-topbar
+   ÖPPNAS  läst direkt
+   ANKARE  button#cloud-menu-button .fxs-topbar-wafflemenu al="Visa Microsoft Cloud-menyn"
+           a.fxs-topbar-sidebar-collapse-button al="Visa portalmenyn"
+           a.fxs-topbar-home href=#home "Microsoft Azure"
+           input .fxs-search i .fxs-topbar-search al="Sök resurser, tjänster och dokument (G+/)"
+           a.fxs-topbar-copilot "Copilot"
+           a.fxs-topbar-console "Cloud Shell"
+           a.fxs-topbar-button al="Meddelanden" (ingen egen klass)
+           a.fxs-topbar-settings "Inställningar"
+           a.fxs-topbar-button al="Support och felsökning" (ingen egen klass)
+           a.fxs-topbar-feedback "Feedback"
+           button#fxs-avatarmenu-button .fxs-menu-account (kontomenyn)
+   STATUS  läst
+
+2. Portalmenyn (vänstermenyn)
+   PLATS   nav.fxs-sidebar-bar, öppnas från hamburgaren
+   ÖPPNAS  klick på a.fxs-topbar-sidebar-collapse-button (klick från Claude fungerar)
+   ANKARE  a.fxs-sidebar-item-link + a.fxs-sidebar-create (#create/hub),
+           .fxs-sidebar-home (#home), .fxs-sidebar-dashboard (#dashboard),
+           .fxs-sidebar-browse (#allservices/category/All),
+           favoriter i ul.fxs-sidebar-favorites, var och en med fast href:
+           ...itemId/browseAll (Alla resurser), ...itemId/resourcegroups,
+           Microsoft.Web%2Fsites (App Services), .../kind/functionapp,
+           ...SingleDatabase (SQL), Microsoft.DocumentDb (Cosmos DB),
+           ...virtualMachinesBrowse, ...loadBalancers, ...StorageAccountsBrowse,
+           ...virtualnetworks, Microsoft_AAD_IAM/ActiveDirectoryMenuBlade
+           (Entra ID), AzureMonitoringBrowseBlade (Övervaka), AdvisorMenuBlade,
+           SecurityMenuBlade (Defender), ModernBillingMenuBlade (Kostnader),
+           HelpAndSupportBlade, CuratedWorkloads (Programmallar).
+           Musen hamnar på div.fxs-sidebar-label, länken är förälder.
+   STATUS  öppnad, stängd med samma knapp
+
+3. Startsidan
+   PLATS   #home, .fxs-home-container (ny variant för nya konton)
+   ANKARE  rubrik "Skapa en resurs" med sex knappar (Virtuell dator,
+           Lagringskonto, SQL Database, Behållarappar, Funktionsapp,
+           Webbapp), a href=#allservices/category/All "Visa alla tjänster",
+           "Fler sätt att skapa": Foundry, GitHub Copilot CLI.
+           Inga testid, bara text.
+   STATUS  läst
+
+4. Bladen (varje sida i portalen)
+   ANKARE  a tid=breadcrumb-item (brödsmulor),
+           h2.fxs-blade-title-titleText, button.fxs-blade-pin (Fäst),
+           button.fxs-blade-favorite, button.fxs-blade-close,
+           button.fxs-blade-collapser, button.fxs-bladecontent-collapser,
+           Copilot-förslag: tid=firstIconButton, tid=visibleButton-N
+           (frågorna byts hela tiden), tid=overflowMenuButton.
+           Tjänstemeny: a.fxc-menu-item med href som slutar på ~/namn eller
+           /namn, button.fxc-menu-expandall, gruppknappar
+           button.azc-listView-groupheader ("Växla Inställningar").
+           Verktygsrad: div.azc-toolbarButton-container role=button, bara
+           text: Lägg till, Uppdatera, Exportera till CSV, Hantera principer,
+           Visa fler alternativ, Feedback, Avbryt prenumeration, Byt namn,
+           Ändra katalog, Analysera.
+           Filter: span.fxc-pill-content, div.fxc-pill-collection-add-button
+           ("Lägg till filter"), input.azc-input role=searchbox.
+           Information: button.fxc-essentials-accordion-toggle.
+   STATUS  läst
+
+5. Prenumerationer
+   PLATS   #view/Microsoft_Azure_Billing/SubscriptionsBladeV2, själva sidan
+   ANKARE  se 4. Prenumerationens namn är en a.fxs-fxclick med href="#".
+           Prenumerationens sida: #@<katalog>/resource/subscriptions/<id>/overview
+           Menyns adresser slutar på: overview, eventlogs (Aktivitetslogg),
+           users (IAM), tags, troubleshoot, security, resourcevisualizer,
+           events, resourceGroups, resources, costByResource, costAlerts,
+           budgets, advisorRecommendations, invoices, marketplace,
+           billingProperties, previewfeatures, quotas, policies, access,
+           resourceproviders, subdeployments, stacks, locks, metrics,
+           diagnostics, supportrequest.
+   STATUS  öppnad (klick på prenumerationens namn, bara läsning)
+
+6. Resursgrupper och Alla resurser
+   PLATS   ...ResourceManager/itemId/resourcegroups och .../browseAll
+   ANKARE  menyn till vänster i själva sidan (a.fxc-menu-item), men själva
+           listan ligger i ramen sandbox-N.reactblade.portal.azure.net.
+   STATUS  ramen inte läst (se Allmänt)
+
+7. Skapa en resurs
+   PLATS   #create/hub, blir #view/Microsoft_Azure_Marketplace/PlusNew.ReactView/...
+   ANKARE  bara rubrik och stäng i själva sidan, allt annat i ramen.
+   STATUS  ramen inte läst
+
+8. Kostnader
+   PLATS   #blade/Microsoft_Azure_GTM/ModernBillingMenuBlade (själva sidan),
+           #view/Microsoft_Azure_CostManagement/Menu/~/costanalysis
+   ANKARE  menyn: ~/BillingAccounts, ~/CostManagement, ~/ManagementGroups,
+           ~/overview, ~/changescope, ~/access, ~/costanalysis, ~/exports,
+           och fler under grupperna Övervakning, Optimering, Inställningar,
+           Fakturering. Själva kostnadsanalysen ligger i ramen.
+           Faktureringskonton: a.ext-link-billingAccounts.
+   STATUS  menyn läst, ramen inte läst
+
+9. Kontomenyn
+   PLATS   uppe till höger
+   ÖPPNAS  klick på #fxs-avatarmenu-button
+   ANKARE  #mectrl_viewAccount, #mectrl_switchdirectory, #mectrl_moreCommands_trigger,
+           #mectrl_mypermissions, #mectrl_feedback, #mectrl_billing,
+           #mectrl_contactinfo, #mectrl_body_signOut, #mectrl_signInItem
+   STATUS  öppnad, stängd med samma knapp
+
+10. Inställningar (kugghjulet)
+   PLATS   #settings/directory
+   ÖPPNAS  klick på .fxs-topbar-settings
+   ANKARE  li.fxs-settings-menu-item med bara text: Kataloger + prenumerationer,
+           Avancerade filter, Utseende, Språk + region, Min information,
+           Loggar ut + meddelanden. Flikar div.fxc-section-tab-item
+           (Favoriter, Alla kataloger). button.fxs-settings-close-button.
+   STATUS  öppnad
+
+11. Cloud Shell
+   STATUS  inte öppnad än. Frågar Anthon först.
+
+12. Meddelanden, Support och felsökning, Copilot
+   STATUS  inte öppnade än
+
+11. Cloud Shell (rättad)
+   PLATS   ram från ux.console.azure.com, öppnas av a.fxs-topbar-console
+   ÖPPNAS  klick på knappen. Första gången: rutan "Välkommen till Azure
+           Cloud Shell" med knapparna Bash och PowerShell. Stängd med krysset
+           (Avbryt), inget valdes, inget lagringskonto skapades.
+   ANKARE  bara text (Bash, PowerShell), därför regler med host=ux.console.azure.com.
+           Själva kommandofönstret ritas på en canvas och går inte att förklara.
+
+13. Startsidan för återkommande (ny 2026-10-27, efter att Anthon skapat Foundry-resurser)
+   ANKARE  tid=freHomeContainer-returningPage (fyra kort med aria-label),
+           tid=alertsCard, tid=costCard, tid=costCard.viewCostButton, tid=resourcesCard.
+
+14. Copilot-panelen
+   PLATS   ram reactblade, behållare al="Azure Copilot"
+   ANKARE  tid=agent-header-new-chat-button, tid=agent-header-menu-button,
+           tid=dai-discover-dropdown, tid=copilot-add-context-button,
+           förslag i role=feed, aria på navigering, åtgärder och Ny upplevelse.
+   OBS     Simulerad mouseover nådde inte två knappar första gången. Riktig
+           hovring visade rätt bubbla. Andra svepet (ny version) fick alla.
+
+15. Programmallar
+   PLATS   #blade/Microsoft_Azure_CloudNative/CuratedWorkloads.ReactView, ram
+   ANKARE  korten är div role=button utan testid. Ramens adress och titel är
+           samma för alla ramar ("Azure Portal View Contents"). Känns igen med
+           hasText: "Appmall", "Guidad distribution" eller Azure/Copilot i namnet.
+
+Fel som svepet hittade (rätt bubbla, inte bara någon):
+   - Resource Manager-menyn: alla sex rader har samma href (.../resourcegroups).
+     Alla fick bubblan Resursgrupper. Rättat: raderna känns igen på text inom
+     .fxc-menu-item, och href-reglerna gäller inte .fxc-menu-item.
+   - Microsofts ikonknappar har ett ikontecken (Unicode privat område) först i
+     texten. normalize() tar nu bort det.
+   - Efter att manifestet fick nya adresser satte Chrome Webbplatsåtkomst så att
+     portal.azure.com inte fick skriptet (ramarna fick det). Anthon ändrade till
+     På alla webbplatser.
+
+Svep 1 och 2, portalen, 2026-10-27. "Med" = bubbla visades, "Utan" = medvetet
+utan (PW_SKIPPED), "Saknas" = varken eller. Procent = (med + utan) / totalt.
+
+   Sida                              Före (med/utan/tot)   Efter (med/utan/tot)
+   Startsidan (#home)                11 / 0 / 27   41 %    27 / 0 / 27   100 %
+   Prenumerationer                   32 / 5 / 42   88 %    36 / 7 / 43   100 %
+   En prenumerations sida            66 / 23 / 104 86 %    54 / 21 / 75  100 %
+   Resursgrupper, sidan              25 / 8 / 33  100 %*   22 / 8 / 30   100 %
+   Resursgrupper, ramen              17 / 4 / 21  100 %    (oförändrad)
+   Alla resurser, ramen              28 / 5 / 35   94 %    27 / 4 / 31   100 %
+   Skapa en resurs, ramen            88 / 1 / 89  100 %    88 / 1 / 89   100 %
+   Kostnadshantering + fakturering   24 / 9 / 33  100 %    (oförändrad)
+   Kostnadsanalys, ramen              7 / 0 / 25   28 %     9 / 0 / 12    75 % **
+   Inställningar + portalmenyn öppen 48 / 23 / 91  78 %    (rättat, ej omsvept)
+   Kontomenyn + Entra ID             22 / 10 / 32 100 %    (oförändrad)
+   Programmallar, ramen               1 / 2 / 20   15 %    11 / 7 / 20    90 % ***
+   Copilot-panelen, ramen             4 / 2 / 12   50 %    10 / 2 / 12   100 %
+   Cloud Shell, välkomstrutan         (ej läst)            2 / 0 / 3      67 % ***
+
+   *   100 % men fel: sex menyrader fick fel bubbla. Rättat i svep 2.
+   **  Uppdatera och Mer information räknades som saknade, fast de står i
+       PW_SKIPPED (ikontecken i texten). Svephjälpen rättad. Kvar: en ikonknapp
+       utan namn alls (ms-Button--hasMenu), som inte går att känna igen.
+   *** Pilarna för sidbyte och krysset räknades fel på samma sätt, rättat.
+
+
+Foundry, Copilot Studio och Power Automate, 2026-10-27
+======================================================
+
+Foundry (ai.azure.com), nya Foundry påslaget
+   ANKARE  Testid är bara "layout" och "content", id som _r_4c_ är genererade.
+           Det som håller: länkarnas adresser (/discover/models, /build/agents,
+           /operate, /manage), aria-label, rubriker och Fluent-klasser som
+           fui-CarouselCard och fui-InfoButton. Länkar har ofta ?tid= på
+           slutet, därför a[href$="/x"] och a[href*="/x?"].
+   OBS     "Version" i menyn är Microsofts översättning av Build. Förklaras.
+           Inga ramar.
+   Menyn   öppnas med knappen Meny (aria). Klick från Claude fungerar.
+
+Copilot Studio (copilotstudio.microsoft.com)
+   ANKARE  data-testid överallt: nav-home, nav-agents, nav-workflows, nav-apps,
+           env-picker-trigger, env-picker-option-<id>, account-profile-button-trigger,
+           advanced-settings-*, suggestion-agent, suggestion-workflow.
+   OBS     Agentsidan visar "Välj en miljö för att se ditt arbete" och Anthon har
+           ingen agent. En agents egna sida (kunskap, ämnen, åtgärder, publicera)
+           kräver att en agent skapas, vilket är en ändring i kontot. Inte svept.
+
+Power Automate (make.powerautomate.com)
+   ANKARE  data-automation-id på kommandon och flikar (flowMenu_new_flow_menu,
+           flowCommand-editV3, personalCloudFlowsTab, templateCardLink-<id>),
+           menyns adresser (/create, /templates, /flows, /solutions ...),
+           kopplingar via /connectors/shared_<namn>.
+   OBS     Cookierutan: Neka valdes (bara nödvändiga cookies).
+           Fliken Molnflöden har samma adress som menyraden Mina flöden och fick
+           fel bubbla. Rättat med notWithin.
+           Miljöknappen: normalize() tar bort parenteser, så "(default)" gick
+           inte att matcha. Känns nu igen på ordet Miljöer först i texten.
+
+   Sida                              Före (med/utan/tot)   Efter (med/utan/tot)
+   Foundry, startsidan               32 / 3 / 41   85 %    (rättat, ej omsvept)
+   Foundry, Upptäck                  59 / 7 / 90   73 %    78 / 7 / 90   94 % *
+   Foundry, Version (agenter)        21 / 4 / 28   89 %    (rättat, ej omsvept)
+   Foundry, Administrera             26 / 2 / 35   80 %    (rättat, ej omsvept)
+   Foundry, Hantera                  32 / 6 / 45   84 %    (rättat, ej omsvept)
+   Copilot Studio, startsidan        12 / 6 / 22   82 %    (rättat, ej omsvept)
+   Copilot Studio, miljöväljaren      5 / 0 / 6    83 %    (rättat, ej omsvept)
+   Copilot Studio, Appar             10 / 4 / 15   93 %    (rättat, ej omsvept)
+   Power Automate, startsidan        19 / 19 / 62  61 %    42 / 19 / 62  98 %
+   Power Automate, Skapa             41 / 2 / 69   62 %    66 / 2 / 69   99 %
+   Power Automate, Mina flöden       30 / 2 / 38   84 %    (rättat, ej omsvept)
+
+   *   De fem kvarvarande var lösningsmallar i en karusell. Regel tillagd
+       (fui-CarouselCard) efter svepet, kontrolleras vid nästa omladdning.
+
+   Kontroll efter sista omladdningen: riktig hovring på lösningsmallen
+   "Get started with AI agents" i Foundry visar bubblan Lösningsmall. De fem
+   korten räknas därmed som förklarade: Upptäck blir 83 / 7 / 90 = 100 %.
+
+
+Delar som inte gick att förklara, och varför
+--------------------------------------------
+- Cloud Shells kommandofönster: ritas på en canvas (terminal). Bara
+  välkomstrutan och knappen i toppfältet har bubblor.
+- En agents egen sida i Copilot Studio (kunskap, ämnen, åtgärder, publicera,
+  testa): Anthon har ingen agent, och att skapa en vore en ändring i kontot.
+  Punkt 22 i listan ovan är därför inte svept.
+- En ikonknapp utan namn i kostnadsanalysens verktygsrad
+  (ms-Button--hasMenu, ingen aria-label, ingen text): inget att känna igen.
+- Kostnadsanalysens diagram: ritas på canvas.
+- Innehållet i enskilda tjänster (en virtuell dators sida, en databas sida):
+  medvetet utanför, se listan ovan. Menyn som alla resurser delar (punkt 13)
+  är förklarad via prenumerationens sida.
+- Portalens engelska version: reglerna har engelska ord, men de är inte
+  svepta, eftersom att byta språk vore en ändring i Anthons inställningar.
+- Ett skapa-formulär (flikarna Basics, Tags, Review + create): öppnades inte,
+  eftersom det startar skapandet av en resurs. Skapa en resurs-sidan och
+  knapparna som öppnar formulären är förklarade.
