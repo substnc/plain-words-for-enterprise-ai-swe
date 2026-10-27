@@ -102,5 +102,5 @@ på om du gör om det för en annan sajt. I den ordning de gjordes, 27 oktober 2
 ## 17. Uppdraget jämfört med skillen /forklara-sajt
 
 - **Valt:** Den enda verkliga krocken, inbyggd webbläsare mot Chrome, togs upp med dig innan arbetet började, och du valde Chrome. Resten stämmer med skillen: bara läsa i kontot (skillens "Aldrig"-lista säger samma sak), `store/` för allt utom zip-filen, ingen uppladdning ("Ladda aldrig upp något själv"). Installationen i Chrome (steg 5) gjorde du själv, och den ändrar inget i Azure. Steg 8 (GitHub) väntar på ditt ja.
-- **Varför:** Uppdraget sa att jag skulle fråga om reglerna krockade med skillen. Jämförelsen lades fram för dig i efterhand, 2026-10-27, men du har inte bekräftat den än.
+- **Varför:** Uppdraget sa att jag skulle fråga om reglerna krockade med skillen. Jämförelsen lades fram för dig i efterhand, 2026-10-27, och du godkände den, liksom att Copilot Studio öppnades med din befintliga inloggning.
 - **Tänk på:** Lägg jämförelsen mellan uppdrag och skill i en enda fråga allra först, innan något byggs, även när du tror att det bara finns en krock.
