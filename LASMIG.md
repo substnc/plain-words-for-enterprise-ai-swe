@@ -1,10 +1,10 @@
 # Plain Words for Enterprise AI SWE
 
-Microsofts moln- och AI-verktyg förklarade med vanliga ord, på svenska: Azure-portalen, Foundry, Copilot Studio och Power Automate.
+Microsofts moln- och AI-verktyg förklarade med vanliga ord, på svenska: Azure-portalen, Foundry, Copilot Studio, Power Automate och administrationscentren för Microsoft 365 och Power Platform.
 
-Ett tillägg till webbläsaren. Håll musen still över en knapp, flik, meny eller länk i Azure-portalen, Foundry, Copilot Studio och Power Automate i ungefär en halv sekund, så dyker en svart pratbubbla upp. Den berättar med vardagliga ord vad saken är, och under rubriken Nytta när du har användning av den.
+Ett tillägg till webbläsaren. Håll musen still över en knapp, flik, meny eller länk i Azure-portalen, Foundry, Copilot Studio, Power Automate och administrationscentren för Microsoft 365 och Power Platform i ungefär en halv sekund, så dyker en svart pratbubbla upp. Den berättar med vardagliga ord vad saken är, och under rubriken Nytta när du har användning av den.
 
-Allt finns redan i tillägget. Det behövs ingen AI, ingen nyckel och ingen internetanslutning för förklaringarna. Tillägget körs bara på de fyra verktygen (portal.azure.com, ai.azure.com, copilotstudio.microsoft.com och make.powerautomate.com, plus portalens egna ramar) och skickar ingenting någonstans.
+Allt finns redan i tillägget. Det behövs ingen AI, ingen nyckel och ingen internetanslutning för förklaringarna. Tillägget körs bara på de sex verktygen (portal.azure.com, ai.azure.com, copilotstudio.microsoft.com och make.powerautomate.com, admin.cloud.microsoft och admin.powerplatform.microsoft.com, plus portalens egna ramar) och skickar ingenting någonstans.
 
 ## Installera i Chrome
 
@@ -16,7 +16,7 @@ Det tar ungefär fem minuter. Du gör det bara en gång.
 4. **Slå på utvecklarläget.** Klicka på reglaget **Utvecklarläge** (Developer mode) uppe till höger. Det betyder bara att du får lägga in tillägg från din egen dator.
 5. **Lägg in tillägget.** Klicka på **Läs in okomprimerat tillägg** (Load unpacked) och välj mappen **extension** inuti mappen från steg 2.
 6. **Sätt fast ikonen.** Klicka på pusselbiten uppe till höger i Chrome och på nålen bredvid **Plain Words for Enterprise AI SWE**.
-7. **Tillåt alla fyra sajterna.** Klicka på **Information** på tilläggets kort och kontrollera att **Webbplatsåtkomst** är **På alla webbplatser**. Tillägget körs ändå bara på de fyra verktygen.
+7. **Tillåt alla fyra sajterna.** Klicka på **Information** på tilläggets kort och kontrollera att **Webbplatsåtkomst** är **På alla webbplatser**. Tillägget körs ändå bara på de sex verktygen.
 8. **Prova.** Gå till https://portal.azure.com/#home och håll musen still över en knapp.
 
 ## Installera i Safari
@@ -30,7 +30,7 @@ Kräver Safari 26 eller senare.
 1. **Hämta filerna** på samma sätt som i steg 1 och 2 för Chrome ovan.
 2. **Visa utvecklarinställningarna.** Öppna Safari, tryck **Cmd + ,** och gå till fliken **Avancerat**. Bocka i **Visa funktioner för webbutvecklare**.
 3. **Lägg till tillägget.** Gå till fliken **Utvecklare** i samma fönster och klicka på **Lägg till tillfälligt tillägg** (Add Temporary Extension). Godkänn med ditt lösenord eller Touch ID om Safari frågar. Välj mappen **extension** och klicka **Välj**.
-4. **Slå på det.** Safari byter till fliken **Tillägg**, där **Plain Words for Enterprise AI SWE** står under Tillfälliga. Bocka i det och tillåt det på de fyra sajterna.
+4. **Slå på det.** Safari byter till fliken **Tillägg**, där **Plain Words for Enterprise AI SWE** står under Tillfälliga. Bocka i det och tillåt det på de sex sajterna.
 
 Ett tillfälligt tillägg försvinner efter en tid, eller när du startar om Safari. Då gör du steg 3 och 4 igen.
 

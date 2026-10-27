@@ -68,6 +68,8 @@
       .normalize("NFC")
       // Ikontecken från Microsofts ikonteckensnitt ligger i Unicodes privata område och syns inte som text.
       .replace(/[\uE000-\uF8FF]/g, " ")
+      // Osynliga riktningstecken som Microsoft lägger runt sina produktnamn.
+      .replace(/[\u200b-\u200f\u202a-\u202e\u2066-\u2069]/g, "")
       .replace(/\d[\d.,]*\s?[kmb]?(?![a-z])/gi, " ")
       .replace(/[()[\]{}·•|:]/g, " ")
       .replace(/\s+/g, " ")
@@ -356,8 +358,33 @@
 
   /* ---------- Musen och tangentbordet ---------- */
 
+  // Sidan och ramarna har var sin bubbla. Musen kan gå in i en ram utan att
+  // sidan märker det, så den del där musen rör sig ber de andra stänga sin.
+  // Meddelandet innehåller bara { pwHide: 1 }, inget från sidan.
+  var lastPing = 0;
+  function hideOthers(except) {
+    var now = Date.now();
+    if (!except && now - lastPing < 250) return;
+    lastPing = now;
+    try {
+      if (window.parent !== window && window.parent !== except) window.parent.postMessage({ pwHide: 1 }, "*");
+      for (var i = 0; i < window.frames.length; i++) {
+        if (window.frames[i] !== except) window.frames[i].postMessage({ pwHide: 1 }, "*");
+      }
+    } catch (e) {
+      /* en ram som redan är borta */
+    }
+  }
+  window.addEventListener("message", function (event) {
+    if (!event.data || event.data.pwHide !== 1 || event.source === window) return;
+    reset();
+    // Sidan skickar vidare till de andra ramarna, så att en bubbla i en grannram också stängs.
+    if (window === window.top) hideOthers(event.source);
+  });
+
   function onMouseOver(event) {
     if (!enabled) return;
+    hideOthers();
     var found = findMatch(event.target);
     if (!found) {
       suppressedEl = null;

@@ -1,7 +1,8 @@
 # Plain Words for Enterprise AI SWE
 
 Webbläsartillägg som förklarar Microsofts moln- och AI-verktyg med vardagliga ord
-på svenska: Azure-portalen, Foundry, Copilot Studio och Power Automate.
+på svenska: Azure-portalen, Foundry, Copilot Studio, Power Automate och
+administrationscentren för Microsoft 365 och Power Platform.
 Skapat med skillen `/forklara-sajt`. Lärdomarna står i
 `~/.claude/skills/forklara-sajt/referens.md`.
 

@@ -357,3 +357,39 @@ Delar som inte gick att förklara, och varför
 - Ett skapa-formulär (flikarna Basics, Tags, Review + create): öppnades inte,
   eftersom det startar skapandet av en resurs. Skapa en resurs-sidan och
   knapparna som öppnar formulären är förklarade.
+
+
+Tillägg 2026-10-27 (kväll): skapa-formuläret och två administrationscenter
+=========================================================================
+
+Skapa-formuläret (punkt 6)
+   PLATS   #create/Microsoft.ResourceGroup, ram reactblade
+   ÖPPNAS  bara adressen. Inget skrevs i fälten, inget skapades, fliken stängdes.
+   ANKARE  button role=tab (Grundläggande information, Taggar, Granska och skapa),
+           tid=resourceGroupNameInputTestId, tid=reviewAndCreateButtonTestId,
+           Nästa/Föregående i #__bladeFooter.
+   SVEP    6 / 3 / 9 = 100 % (version 409 i ramen). Riktig hovring på Granska och
+           skapa visar "Inget skapas än".
+
+Microsoft 365-administrationscentret (admin.cloud.microsoft)
+   ANKARE  data-automation-id LeftNav<namn>NavToggler på alla menyrader,
+           id på knappar (#AddSingleUser, #TenantSwitcher, #CloudShell,
+           #O365_MainLink_Me), SimplifiedDashboard,* på startsidans flikar.
+   OBS     Microsoft lägger osynliga riktningstecken (U+200E) runt produktnamn.
+           normalize() tar nu bort dem.
+   SVEP    före 77 / 1 / 88 (89 %), efter 86 / 1 / 88 (99 %). Kvar: en knapp utan namn.
+
+Power Platform-administratörscentret (admin.powerplatform.microsoft.com)
+   ANKARE  data-automation-id på vänsterraden (Home, ActionCenter, Manage ...),
+           Manage-* på undermenyn, Dashboard,* på startsidans kort.
+   FEL     Portalens regel för kolumnen Typ ([role=gridcell] button) gav tio
+           meddelanden här fel bubbla. Regeln gäller nu bara portalen.
+   OBS     "Lager" i menyn är Microsofts översättning av Resources. Förklaras.
+   SVEP    Startsidan före 43 / 3 / 48 (fel bubblor), efter 45 / 3 / 48 (100 %).
+           Hantera före 33 / 1 / 61 (56 %), efter 53 / 5 / 61 (95 %).
+   FYND    Miljön "Anthon Bäckström" (typ Utvecklare) skapades 2026-10-27.
+           Troligen automatiskt när Copilot Studio öppnades via ~personal under
+           svepet. Ingen klickade på något som skapar. Lämnad orörd.
+
+Skydd mot kvarhängande bubblor mellan sida och ramar: provat med riktig
+hovring. Cloud Shell-bubblan försvann när musen gick in i formulärets ram.

@@ -82,6 +82,12 @@
   function envLink(seg) {
     return ['a[href$="/' + seg + '"]', 'a[href*="/' + seg + '?"]'];
   }
+  // Administrationscentren för Microsoft 365 och Power Platform.
+  var M365 = /^admin\.cloud\.microsoft$|^admin\.microsoft\.com$/;
+  var PPAC = /^admin\.powerplatform\.microsoft\.com$/;
+  function nav365(id) {
+    return '[data-automation-id="LeftNav' + id + 'NavToggler"]';
+  }
   function fLink(seg) {
     return ['a[href$="/' + seg + '"]', 'a[href*="/' + seg + '?"]'];
   }
@@ -1120,6 +1126,63 @@
       selectors: ['div[role="button"][aria-label]'],
       hasText: /\b(azure|copilot)\b/,
       notWithin: '[role="article"], [data-testid], [role="toolbar"], [role="menubar"], .fxs-topbar, .fxs-sidebar'
+    },
+
+    /* ---------------- Inne i ramarna: ett skapa-formulär ---------------- */
+    {
+      key: "form-tab-basics",
+      name: "Grundläggande information (Basics)",
+      text: "Första fliken i ett skapa-formulär: vilken prenumeration som betalar, vilken resursgrupp saken hamnar i, namn och region.",
+      use: "När du skapar något. Det mesta du behöver fylla i finns här.",
+      selectors: ['button[role="tab"]'],
+      hasText: /^(grundläggande information|grundinställningar|basics)$/
+    },
+    {
+      key: "form-tab-tags",
+      name: "Taggar (Tags)",
+      text: "Etiketter som projekt=webbsida, så att du senare kan se kostnaden per projekt. Frivilligt.",
+      obvious: true,
+      selectors: ['button[role="tab"]'],
+      hasText: /^(taggar|tags)$/
+    },
+    {
+      key: "form-review",
+      name: "Granska och skapa (Review + create)",
+      text: "Visar en sammanfattning och kontrollerar att allt är rätt ifyllt. Inget skapas än, knappen Skapa kommer först på nästa sida.",
+      use: "När du har fyllt i formuläret. Läs sammanfattningen och priset innan du klickar Skapa.",
+      selectors: ['[data-testid="reviewAndCreateButtonTestId"]', 'button[role="tab"]'],
+      hasText: /^(granska och skapa|granska \+ skapa|review \+ create|review and create)$/
+    },
+    {
+      key: "form-next",
+      name: "Nästa (Next)",
+      text: "Går till nästa flik i formuläret. Inget skapas.",
+      obvious: true,
+      aria: [/^nästa/, /^next/],
+      within: "#__bladeFooter"
+    },
+    {
+      key: "form-rg-name",
+      name: "Namn på resursgrupp (Resource group name)",
+      text: "Namnet på den nya mappen för resurser. Vanligt är rg- plus projektet, till exempel rg-webbsida.",
+      use: "När du startar ett projekt. Välj ett namn du känner igen om ett halvår.",
+      selectors: ['[data-testid="resourceGroupNameInputTestId"]']
+    },
+    {
+      key: "form-subscription",
+      name: "Prenumeration (Subscription)",
+      text: "Vilken prenumeration som betalar för det du skapar.",
+      obvious: true,
+      texts: ["prenumeration", "subscription", "prenumeration *", "subscription *"],
+      within: '[role="tabpanel"]'
+    },
+    {
+      key: "form-region",
+      name: "Region",
+      text: "Var i världen datorerna står, till exempel Sweden Central. Välj en region nära dig och dina användare.",
+      use: "När du skapar något. Sweden Central håller datan i Sverige.",
+      texts: ["region", "region *"],
+      within: '[role="tabpanel"]'
     },
 
     /* ---------------- Inne i ramarna: Skapa en resurs ---------------- */
@@ -2581,13 +2644,732 @@
       host: AUTOMATE
     },
 
+    /* ---------------- Microsoft 365-administrationscentret ---------------- */
+    {
+      key: "m-nav-home",
+      name: "Start (Home)",
+      text: "Startsidan i administrationscentret.",
+      obvious: true,
+      selectors: [nav365("homepage")],
+      host: M365
+    },
+    {
+      key: "m-nav-users",
+      name: "Användare (Users)",
+      text: "Alla som har ett konto i företaget. Här lägger du till folk, återställer lösenord och delar ut licenser.",
+      use: "När en ny kollega börjar eller någon har glömt sitt lösenord.",
+      selectors: [nav365("usersnode"), nav365("users")],
+      host: M365
+    },
+    {
+      key: "m-nav-contacts",
+      name: "Kontakter (Contacts)",
+      text: "Personer utanför företaget som syns i adressboken men inte kan logga in.",
+      obvious: true,
+      selectors: [nav365("Contact")],
+      host: M365
+    },
+    {
+      key: "m-nav-guests",
+      name: "Gästanvändare (Guest users)",
+      text: "Personer utanför företaget som har bjudits in, till exempel till ett Teams-team.",
+      obvious: true,
+      selectors: [nav365("guestusers")],
+      host: M365
+    },
+    {
+      key: "m-nav-deleted-users",
+      name: "Borttagna användare (Deleted users)",
+      text: "Konton som har tagits bort de senaste 30 dagarna. De går att få tillbaka.",
+      obvious: true,
+      selectors: [nav365("deletedusers")],
+      host: M365
+    },
+    {
+      key: "m-nav-copilot",
+      name: "Copilot",
+      text: "Inställningar för Microsoft 365 Copilot, AI-assistenten i Word, Outlook och Teams: vem som får den, kopplingar och kostnad.",
+      use: "När ni ska börja använda Copilot i jobbet och du vill styra vem som får den.",
+      selectors: [nav365("CopilotParentNode"), nav365("copilot/overview"), nav365("copilot/settings")],
+      host: M365
+    },
+    {
+      key: "m-nav-copilot-connectors",
+      name: "Kopplingar (Connectors)",
+      text: "Låter Copilot läsa från andra system, som ert intranät eller ett ärendesystem.",
+      obvious: true,
+      selectors: [nav365("copilot/connectors")],
+      host: M365
+    },
+    {
+      key: "m-nav-copilot-prompts",
+      name: "Promptar (Prompts)",
+      text: "Färdiga frågor till Copilot som du kan dela med hela företaget.",
+      obvious: true,
+      selectors: [nav365("copilot/promptcatalog")],
+      host: M365
+    },
+    {
+      key: "m-nav-copilot-cost",
+      name: "Kostnadshantering (Cost management)",
+      text: "Vad Copilot och agenterna kostar företaget, och gränser för det.",
+      obvious: true,
+      selectors: [nav365("copilot/costmanagement"), nav365("costManagement")],
+      host: M365
+    },
+    {
+      key: "m-nav-agents",
+      name: "Agenter (Agents)",
+      text: "Alla AI-agenter i företaget, även de som byggts i Copilot Studio. Här styr du vem som får använda dem.",
+      use: "När någon har byggt en agent och du vill se vad den gör och vem som har tillgång.",
+      selectors: [nav365("AgentsNode"), nav365("agents/overview"), nav365("agents/all")],
+      host: M365
+    },
+    {
+      key: "m-nav-agents-other",
+      name: "Agenter: karta, verktyg och inställningar",
+      text: "Fler vyer över agenterna: hur de hänger ihop, vilka verktyg de får använda och borttagna agenter.",
+      obvious: true,
+      selectors: [nav365("agents/map"), nav365("agents/deleted-agents"), nav365("agents/tools"), nav365("agents/settings")],
+      host: M365
+    },
+    {
+      key: "m-nav-apps",
+      name: "Appar (Apps)",
+      text: "Apparna som företaget använder, både Microsofts och andras, och vem som får installera dem.",
+      obvious: true,
+      selectors: [nav365("AppsNode"), nav365("apps/overview"), nav365("apps/all"), nav365("apps/monitor"), nav365("apps/settings")],
+      host: M365
+    },
+    {
+      key: "m-nav-groups",
+      name: "Teams och grupper (Teams & groups)",
+      text: "Grupper av användare, till exempel ett Teams-team eller en e-postlista. Behörigheter sätts ofta på en grupp i stället för på varje person.",
+      use: "När flera ska dela samma filer, kalender eller kanal.",
+      selectors: [nav365("groupsnode"), nav365("groups")],
+      host: M365
+    },
+    {
+      key: "m-nav-policies",
+      name: "Principer (Policies)",
+      text: "Regler för hela företaget, till exempel vem som får skapa team.",
+      obvious: true,
+      selectors: [nav365("PolicyManagement")],
+      host: M365
+    },
+    {
+      key: "m-nav-deleted-groups",
+      name: "Borttagna grupper (Deleted groups)",
+      text: "Grupper som har tagits bort de senaste 30 dagarna. De går att få tillbaka.",
+      obvious: true,
+      selectors: [nav365("deletedgroups")],
+      host: M365
+    },
+    {
+      key: "m-nav-shared-mailbox",
+      name: "Delade postlådor (Shared mailboxes)",
+      text: "En gemensam e-postadress som flera läser, till exempel info@.",
+      use: "När flera ska svara på samma mejladress.",
+      selectors: [nav365("SharedMailbox")],
+      host: M365
+    },
+    {
+      key: "m-nav-marketplace",
+      name: "Marketplace",
+      text: "Microsofts butik för appar och tjänster till Microsoft 365.",
+      obvious: true,
+      selectors: [nav365("Marketplace")],
+      host: M365
+    },
+    {
+      key: "m-nav-billing",
+      name: "Fakturering (Billing)",
+      text: "Vad företaget betalar för: produkter, licenser, fakturor och betalningssätt.",
+      use: "När du vill se vad Microsoft 365 kostar eller köpa fler licenser.",
+      selectors: [nav365("Billing"), nav365("billoverview"), nav365("billingAccounts"), nav365("paymentMethods"), nav365("billingNotifications"), nav365("paygPlatform")],
+      host: M365
+    },
+    {
+      key: "m-nav-products",
+      name: "Dina produkter (Your products)",
+      text: "Abonnemangen företaget har, till exempel Microsoft 365 Business, och hur många licenser som finns.",
+      obvious: true,
+      selectors: [nav365("subscriptions")],
+      host: M365
+    },
+    {
+      key: "m-nav-licenses",
+      name: "Licenser (Licenses)",
+      text: "En licens är rätten för en person att använda en produkt. Varje användare behöver en för att få Outlook, Teams och så vidare.",
+      use: "När en ny användare inte kommer åt Outlook. Oftast saknas en licens.",
+      selectors: [nav365("licenses"), nav365("licenseRequest")],
+      host: M365
+    },
+    {
+      key: "m-nav-setup",
+      name: "Setup",
+      text: "Guider för att komma igång: domän, e-post, säkerhet och flytt från andra system.",
+      use: "När du sätter upp Microsoft 365 för första gången.",
+      selectors: [nav365("M365SetupNode"), nav365("DeploymentGuides"), nav365("HealthDashboard"), nav365("TrainingResources"), nav365("migration"), nav365("FastTrackAssistance")],
+      host: M365
+    },
+    {
+      key: "m-nav-customize",
+      name: "Anpassa navigering (Customize navigation)",
+      text: "Väljer vilka rader som syns i menyn.",
+      obvious: true,
+      selectors: [nav365("EditLeftNav")],
+      host: M365
+    },
+    {
+      key: "m-nav-show-all",
+      name: "Visa alla (Show all)",
+      text: "Visar hela menyn, med fler administrationscenter längst ner.",
+      obvious: true,
+      selectors: [nav365("showMoreLink")],
+      host: M365
+    },
+    {
+      key: "m-nav-collapse",
+      name: "Navigeringsmeny",
+      text: "Visar eller döljer menyn till vänster.",
+      obvious: true,
+      selectors: ['[data-automation-id="Navigation Collapse"]'],
+      host: M365
+    },
+    {
+      key: "m-cloud-shell",
+      name: "Cloud Shell",
+      text: "Ett kommandofönster i webbläsaren, samma som i Azure-portalen.",
+      obvious: true,
+      ids: ["CloudShell"],
+      host: M365
+    },
+    {
+      key: "m-app",
+      name: "Microsoft 365 Admin app",
+      text: "Länk till administrationsappen för mobilen.",
+      obvious: true,
+      ids: ["AppIcon"],
+      host: M365
+    },
+    {
+      key: "m-dark",
+      name: "Mörkt läge (Dark mode)",
+      text: "Byter till mörka färger.",
+      obvious: true,
+      ids: ["DarkMode"],
+      host: M365
+    },
+    {
+      key: "m-notifications",
+      name: "Meddelanden (Notifications)",
+      text: "Vad som har hänt nyss i administrationen.",
+      obvious: true,
+      ids: ["Notifications"],
+      host: M365
+    },
+    {
+      key: "m-tenant",
+      name: "Aktuell klientorganisation (Tenant)",
+      text: "Vilken organisation du administrerar. En klientorganisation (tenant) är företagets egen del hos Microsoft, med alla användare och licenser.",
+      use: "När du administrerar flera företag och vill kolla att du är i rätt.",
+      ids: ["TenantSwitcher"],
+      host: M365
+    },
+    {
+      key: "m-view",
+      name: "Vy (Dashboard view)",
+      text: "Byter mellan förenklad vy och instrumentpanelen med fler rutor.",
+      obvious: true,
+      ids: ["DashboardSwitcher"],
+      host: M365
+    },
+    {
+      key: "m-add-user",
+      name: "Lägg till användare (Add user)",
+      text: "Skapar ett nytt konto med e-postadress, och delar ut en licens.",
+      use: "När en ny kollega börjar. Varje licens kostar per månad.",
+      ids: ["AddSingleUser", "SimplifiedUserList_AddUserButton"],
+      selectors: ['[id^="SimplifiedUserList_AddUser"]'],
+      host: M365
+    },
+    {
+      key: "m-reset-pw",
+      name: "Återställ lösenord (Reset password)",
+      text: "Ger en användare ett nytt tillfälligt lösenord.",
+      use: "När någon har glömt sitt lösenord och inte kan återställa det själv.",
+      ids: ["ResetPassword"],
+      selectors: ['[id^="SimplifiedUserList_ResetPasswo"]'],
+      aria: ["återställ lösenord", "reset password"],
+      host: M365
+    },
+    {
+      key: "m-create-team",
+      name: "Lägg till team (Add team)",
+      text: "Skapar ett nytt Teams-team med egen kanal, filer och kalender.",
+      use: "När en grupp ska jobba tillsammans i Teams.",
+      ids: ["CreateTeam"],
+      host: M365
+    },
+    {
+      key: "m-bill",
+      name: "Visa din faktura (View your bill)",
+      text: "Öppnar företagets fakturor från Microsoft.",
+      obvious: true,
+      ids: ["Billing"],
+      host: M365
+    },
+    {
+      key: "m-more",
+      name: "Fler åtgärder (More actions)",
+      text: "Fler knappar som inte får plats.",
+      obvious: true,
+      aria: [/^fler åtgärder/, /^more actions/, /^visa fler åtgärder/],
+      host: M365
+    },
+    {
+      key: "m-tabs",
+      name: "Din organisation",
+      text: "Flikar med det viktigaste: användare, produkter, kommande ändringar, utbildning och konfiguration.",
+      obvious: true,
+      selectors: ['[data-automation-id^="SimplifiedDashboard,"][role="tab"]', 'button[role="tab"][id^="Pivot"]'],
+      host: M365
+    },
+    {
+      key: "m-org-cards",
+      name: "För organisationer som din",
+      text: "Förslag från Microsoft, ofta på saker att köpa eller prova.",
+      obvious: true,
+      texts: ["för organisationer som din", "for organizations like yours"],
+      selectors: ['[data-automation-id^="SimplifiedDashboard,SimplifiedDashboard_"]'],
+      host: M365
+    },
+    {
+      key: "m-user-search",
+      name: "Sök i användarlistan",
+      text: "Filtrerar listan med användare.",
+      obvious: true,
+      aria: [/^ange om du vill söka i användarlistan/, /^search the user list/],
+      host: M365
+    },
+    {
+      key: "m-user-row",
+      name: "Användare (User)",
+      text: "En person med konto i företaget. Klicka för att se licenser och inställningar.",
+      obvious: true,
+      selectors: ['.ms-Persona'],
+      host: M365
+    },
+    {
+      key: "m-help",
+      name: "Hjälp och support (Help & support)",
+      text: "Microsofts hjälp och möjlighet att skapa ett supportärende.",
+      obvious: true,
+      selectors: ['[data-automation-id="NH-Widget"]'],
+      host: M365
+    },
+
+    {
+      key: "m-waffle",
+      name: "Appfönstret (App launcher)",
+      text: "Genvägar till Microsofts andra appar, som Outlook, Teams och de andra administrationscentren.",
+      obvious: true,
+      ids: ["O365_MainLink_NavMenu"],
+      aria: ["appfönstret", "app launcher"],
+      host: M365
+    },
+    {
+      key: "m-logo",
+      name: "Microsoft 365-administrationscenter",
+      text: "Platsen där du sköter företagets användare, licenser och Microsoft 365-appar. Hit kommer du bara om du är administratör.",
+      obvious: true,
+      selectors: ['a[href="https://admin.cloud.microsoft/"]', 'a[href="https://admin.microsoft.com/"]'],
+      host: M365
+    },
+    {
+      key: "m-search",
+      name: "Sök (Search)",
+      text: "Söker bland användare, inställningar och hjälp i administrationscentret.",
+      obvious: true,
+      aria: [/^sökruta/, /^search box/],
+      host: M365
+    },
+    {
+      key: "m-settings",
+      name: "Inställningar (Settings)",
+      text: "Dina egna inställningar, som språk och tidszon.",
+      obvious: true,
+      aria: ["inställningar", "settings"],
+      host: M365
+    },
+    {
+      key: "m-help-top",
+      name: "Hjälp (Help)",
+      text: "Guider och support.",
+      obvious: true,
+      aria: ["hjälp", "help"],
+      host: M365
+    },
+    {
+      key: "m-account",
+      name: "Kontohanterare (Account)",
+      text: "Vem du är inloggad som. Här loggar du ut.",
+      obvious: true,
+      ids: ["O365_MainLink_Me"],
+      aria: [/^kontohanterare/, /^account manager/],
+      host: M365
+    },
+    {
+      key: "m-offer",
+      name: "Erbjudande från Microsoft",
+      text: "Ett förslag från Microsoft, ofta på något att köpa eller prova gratis en period. Provperioder kan bli betalda om du inte säger upp dem.",
+      obvious: true,
+      selectors: ["button"],
+      hasText: /(prova .* kostnadsfritt|kostnadsfritt i|få support för|try .* free|get support for)/,
+      host: M365
+    },
+    {
+      key: "m-your-org",
+      name: "Din organisation (Your organization)",
+      text: "En översikt över företaget i flikar: användare, produkter, kommande ändringar, utbildning och konfiguration.",
+      obvious: true,
+      texts: ["din organisation", "your organization"],
+      host: M365
+    },
+
+    /* ---------------- Power Platform-administratörscentret ---------------- */
+    {
+      key: "p-home",
+      name: "Start (Home)",
+      text: "Startsidan med status, dokumentation och meddelanden.",
+      obvious: true,
+      selectors: ['[data-automation-id="Home"]'],
+      host: PPAC
+    },
+    {
+      key: "p-actions",
+      name: "Åtgärder (Actions)",
+      text: "Rekommendationer från Microsoft om vad du borde göra, till exempel säkerhetsinställningar.",
+      obvious: true,
+      selectors: ['[data-automation-id="ActionCenter"]'],
+      host: PPAC
+    },
+    {
+      key: "p-manage",
+      name: "Hantera (Manage)",
+      text: "Miljöer, användare och inställningar. En miljö är en egen avdelning med sina egna agenter, flöden och data.",
+      use: "När du vill se vilka miljöer som finns, eller skapa en för test.",
+      selectors: ['[data-automation-id="Manage"]'],
+      host: PPAC
+    },
+    {
+      key: "p-security",
+      name: "Säkerhet (Security)",
+      text: "Säkerhetsråd och regler för vad som får delas och var data får hamna.",
+      obvious: true,
+      selectors: ['[data-automation-id="Security"]'],
+      host: PPAC
+    },
+    {
+      key: "p-copilot",
+      name: "Copilot",
+      text: "Hur AI-funktionerna används i Power Platform, och inställningar för dem.",
+      obvious: true,
+      selectors: ['[data-automation-id="Copilot"]'],
+      host: PPAC
+    },
+    {
+      key: "p-monitoring",
+      name: "Övervaka (Monitor)",
+      text: "Hur apparna och flödena mår: körningar, fel och fart.",
+      obvious: true,
+      selectors: ['[data-automation-id="Monitoring"]'],
+      host: PPAC
+    },
+    {
+      key: "p-deployment",
+      name: "Distribution (Deployment)",
+      text: "Flytt av lösningar mellan miljöer, till exempel från test till skarp drift.",
+      obvious: true,
+      selectors: ['[data-automation-id="Deployment"]'],
+      host: PPAC
+    },
+    {
+      key: "p-licensing",
+      name: "Licensiering (Licensing)",
+      text: "Vilka licenser och hur mycket kapacitet företaget har, och hur mycket som används.",
+      use: "När något kräver en Premium-licens eller lagringen tar slut.",
+      selectors: ['[data-automation-id="Licensing"]'],
+      host: PPAC
+    },
+    {
+      key: "p-support",
+      name: "Support",
+      text: "Felsökning och supportärenden till Microsoft.",
+      obvious: true,
+      selectors: ['[data-automation-id="Support"]'],
+      host: PPAC
+    },
+    {
+      key: "p-admin-centers",
+      name: "Administratörscenter (Admin centers)",
+      text: "Länkar till Microsofts andra administrationscenter, som Microsoft 365 och Entra.",
+      obvious: true,
+      selectors: ['[data-automation-id="admin-centers-button"]'],
+      host: PPAC
+    },
+    {
+      key: "p-notifications",
+      name: "Aviseringar (Notifications)",
+      text: "Vad som har hänt nyss i administrationen.",
+      obvious: true,
+      ids: ["shell-notification-panel"],
+      host: PPAC
+    },
+    {
+      key: "p-announcements",
+      name: "Meddelanden (Announcements)",
+      text: "Nyheter från Microsoft om Power Platform.",
+      obvious: true,
+      ids: ["shell-announcement-panel"],
+      host: PPAC
+    },
+    {
+      key: "p-theme",
+      name: "Mörkt läge (Dark mode)",
+      text: "Byter till mörka färger.",
+      obvious: true,
+      ids: ["theme-switcher"],
+      host: PPAC
+    },
+    {
+      key: "p-search",
+      name: "Sök (Search)",
+      text: "Söker bland inställningar, rapporter och hjälp.",
+      obvious: true,
+      aria: [/^sökruta/, /^search box/],
+      host: PPAC
+    },
+    {
+      key: "p-settings",
+      name: "Inställningar (Settings)",
+      text: "Dina egna inställningar för administrationscentret.",
+      obvious: true,
+      aria: ["inställningar", "settings"],
+      host: PPAC
+    },
+    {
+      key: "p-help",
+      name: "Hjälp (Help)",
+      text: "Guider och support.",
+      obvious: true,
+      aria: ["hjälp", "help"],
+      host: PPAC
+    },
+    {
+      key: "p-account",
+      name: "Kontohanterare (Account)",
+      text: "Vem du är inloggad som. Här loggar du ut.",
+      obvious: true,
+      aria: [/^kontohanterare/, /^account manager/],
+      host: PPAC
+    },
+    {
+      key: "p-waffle",
+      name: "Appfönstret (App launcher)",
+      text: "Genvägar till Microsofts andra appar.",
+      obvious: true,
+      aria: ["appfönstret", "app launcher"],
+      host: PPAC
+    },
+    {
+      key: "p-add-card",
+      name: "Lägg till kort (Add card)",
+      text: "Lägger till en ruta på startsidan.",
+      obvious: true,
+      ids: ["AddCard"],
+      host: PPAC
+    },
+    {
+      key: "p-service-health",
+      name: "Tjänstens status (Service health)",
+      text: "Om Microsoft har driftstörningar som påverkar er just nu.",
+      use: "När något slutar fungera utan att ni har ändrat något.",
+      selectors: ['[data-automation-id^="Dashboard,ServiceHealth"]'],
+      host: PPAC
+    },
+    {
+      key: "p-message-center",
+      name: "Meddelandecenter (Message center)",
+      text: "Microsofts meddelanden om ändringar som kommer, till exempel att en funktion försvinner.",
+      use: "När du vill veta om något ni använder kommer att ändras.",
+      selectors: ['[data-automation-id^="Dashboard,MessageCenter"]'],
+      host: PPAC
+    },
+    {
+      key: "p-docs",
+      name: "Dokumentation",
+      text: "Länkar till Microsofts guider om administration och licenser.",
+      obvious: true,
+      selectors: ['a[data-automation-id^="Dashboard,"][href*="docs.microsoft.com"]', 'a[data-automation-id^="Dashboard,"][href*="learn.microsoft.com"]', 'a[data-automation-id*="Community"]', 'a[data-automation-id*="Adopt"]'],
+      host: PPAC
+    },
+    {
+      key: "p-recommendations",
+      name: "Rekommendationer",
+      text: "Saker Microsoft tycker att du borde se över, sorterade efter hur viktiga de är.",
+      obvious: true,
+      ids: ["Dashboard,OpenRecommendationsCard"],
+      texts: ["visa alla rekommendationer", "view all recommendations"],
+      host: PPAC
+    },
+    {
+      key: "p-m-environments",
+      name: "Miljöer (Environments)",
+      text: "Listan över miljöerna. En miljö är en egen avdelning med egna agenter, flöden och data: Default delas av alla, Utvecklare är din egen.",
+      use: "När du undrar var en agent eller ett flöde ligger, eller vill se vilka miljöer som finns.",
+      selectors: ['[data-automation-id="Manage-Environments"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-env-groups",
+      name: "Miljögrupper (Environment groups)",
+      text: "Grupper av miljöer som får samma regler.",
+      obvious: true,
+      selectors: ['[data-automation-id="Manage-EnvironmentGroups"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-resources",
+      name: "Lager (Resources)",
+      text: "Allt som finns i miljöerna: appar, flöden och agenter. Ordet Lager är Microsofts översättning av Resources.",
+      obvious: true,
+      selectors: ['[data-automation-id="Manage-Resources"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-usage",
+      name: "Användning (Usage)",
+      text: "Hur mycket apparna, flödena och agenterna används.",
+      obvious: true,
+      selectors: ['[data-automation-id="Manage-Usage"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-tenant",
+      name: "Klientorganisationsinställningar (Tenant settings)",
+      text: "Inställningar för hela företaget, till exempel vem som får skapa miljöer.",
+      obvious: true,
+      selectors: ['[data-automation-id="Manage-TenantSettings"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-data",
+      name: "Data",
+      text: "Kopplingar till data på företagets egna servrar, och flytt av data in i och ut ur Power Platform.",
+      obvious: true,
+      selectors: ['[data-automation-id="Manage-DataGateways"]', '[data-automation-id="Manage-DataIntegration"]', '[data-automation-id="Manage-DataExport"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-products",
+      name: "Inställningar per produkt",
+      text: "Administratörens inställningar för just den produkten, till exempel Power Automate eller Copilot Studio.",
+      obvious: true,
+      selectors: ['[data-automation-id="Manage-PowerApps"]', '[data-automation-id="Manage-PowerAutomate"]', '[data-automation-id="Manage-PowerPages"]', '[data-automation-id="Manage-D365Apps"]', '[data-automation-id="Manage-D365Agents"]', '[data-automation-id="Manage-CopilotStudio"]', '[data-automation-id="Manage-D365Commerce"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-dataverse",
+      name: "Dataverse",
+      text: "Databasen som en miljö kan ha, där appar, flöden och agenter sparar sina uppgifter.",
+      obvious: true,
+      selectors: ['[data-automation-id="Manage-DataVerse"]'],
+      host: PPAC
+    },
+    {
+      key: "p-m-heading",
+      name: "Hantera (Manage)",
+      text: "Miljöer, användare och inställningar för Power Platform.",
+      obvious: true,
+      texts: ["hantera", "manage"],
+      tags: ["h1", "h2", "h3"],
+      host: PPAC
+    },
+    {
+      key: "p-new-view",
+      name: "Ny miljövy (New view)",
+      text: "Byter mellan den nya och den gamla listvyn. Det ändrar bara utseendet.",
+      obvious: true,
+      selectors: ['input[role="switch"]'],
+      host: PPAC
+    },
+    {
+      key: "p-env-actions",
+      name: "Åtgärder för miljön",
+      text: "Det du kan göra med miljön, till exempel öppna den eller se detaljer.",
+      obvious: true,
+      aria: [/^åtgärder för/, /^actions for/],
+      host: PPAC
+    },
+    {
+      key: "p-message-item",
+      name: "Meddelande från Microsoft",
+      text: "Ett meddelande om en ändring som kommer, till exempel att en funktion byter namn eller försvinner. Klicka för att läsa det.",
+      obvious: true,
+      selectors: ['[data-automation-id*="MessageCenter"] [role="gridcell"] button', '[data-automation-id*="MessageCenter"] button[role="button"]'],
+      host: PPAC
+    },
+    {
+      key: "p-grid-row",
+      name: "Rad i listan",
+      text: "En rad i listan. Klicka för att se mer.",
+      obvious: true,
+      selectors: ['[role="gridcell"] button'],
+      host: PPAC
+    },
+    {
+      key: "p-counts",
+      name: "Antal",
+      text: "Hur många olästa meddelanden eller rekommendationer som väntar.",
+      obvious: true,
+      texts: [/olästa meddelanden$/, /rekommendationer$/, /unread messages$/, /recommendations$/],
+      host: PPAC
+    },
+    {
+      key: "p-new-env",
+      name: "Skapa ny miljö (New environment)",
+      text: "Skapar en ny miljö, en egen avdelning för agenter, flöden och data. Utvecklarmiljöer är gratis, andra kan kosta.",
+      use: "När du vill testa utan att röra företagets gemensamma miljö.",
+      texts: ["skapa ny miljö", "new environment", "skapa", "create"],
+      within: "[role=\"menubar\"], [role=\"toolbar\"]",
+      host: PPAC
+    },
+    {
+      key: "p-env-row",
+      name: "Miljö (Environment)",
+      text: "En miljö. Typen säger vad den är till för: Standard delas av alla, Utvecklare är din egen för test.",
+      obvious: true,
+      selectors: ['a[href*="/environments/environment/"]'],
+      host: PPAC
+    },
+    {
+      key: "p-deleted-envs",
+      name: "Nyligen borttagna miljöer",
+      text: "Miljöer som har tagits bort och går att få tillbaka en tid.",
+      obvious: true,
+      texts: ["nyligen borttagna miljöer", "recently deleted environments"],
+      host: PPAC
+    },
+
     /* ---------------- Fler saker som svepet hittade i portalen ---------------- */
     { key: "rm-menu-root", name: "Resource Manager", text: "Azures system för att skapa och hålla ordning på resurser. Här finns listorna över allt du har.", obvious: true, texts: ["resource manager"], within: ".fxc-menu-item" },
     { key: "rm-menu-favorites", name: "Favoritresurser (Favorite resources)", text: "Resurserna du har stjärnmärkt.", obvious: true, texts: ["favoritresurser", "favorite resources"], within: ".fxc-menu-item" },
     { key: "rm-menu-recent", name: "Senaste resurser (Recent resources)", text: "Resurserna du har tittat på senast.", obvious: true, texts: ["senaste resurser", "recent resources"], within: ".fxc-menu-item" },
     { key: "toolbar-analyze", name: "Analysera (Analyze)", text: "Öppnar en analys av de prenumerationer du har markerat i listan.", obvious: true, texts: ["analysera", "analyze"], within: TOOLBAR },
     { key: "frame-open-query", name: "Öppen fråga (Open query)", text: "Öppnar listan som en fråga i Resource Graph, ett sökspråk för resurser.", obvious: true, aria: ["öppen fråga", "open query"], texts: ["öppen fråga", "open query"] },
-    { key: "grid-type", name: "Typ (Type)", text: "Vilken sorts resurs det är. Klicka för att öppna tjänstens sida, med alla resurser av samma sort.", obvious: true, selectors: ['[role="gridcell"] button'] },
+    { key: "grid-type", name: "Typ (Type)", text: "Vilken sorts resurs det är. Klicka för att öppna tjänstens sida, med alla resurser av samma sort.", obvious: true, selectors: ['[role="gridcell"] button'], host: /(^portal\.azure\.com|\.reactblade\.portal\.azure\.net)$/ },
     { key: "page-size", name: "Rader per sida", text: "Hur många rader listan visar på varje sida.", obvious: true, selectors: [".fxc-group-dropdown-arrow"], aria: [/^skriv för att filtrera resultat/, /^type to filter results/] },
     {
       key: "sub-spend",
@@ -2662,7 +3444,7 @@
     { texts: ["uppdatera", "refresh", "feedback", "ge feedback", "give feedback", "byt namn", "rename", "välj alla objekt", "select all items"] },
     { texts: ["< föregående", "nästa >", "< previous", "next >", "utseende", "appearance", "språk + region", "language + region"] },
     { texts: ["läs mer", "learn more", "läs mer om kataloger.", "learn more about directories.", "mer information"] },
-    { aria: ["uppdatera", "refresh", "välj alla rader", "markera rad", "select all rows", "select row", "växla till helskärmsläge", "stäng copilot-hubben", "föregående sida", "nästa sida", "ge feedback"] },
+    { aria: ["uppdatera", "refresh", "välj alla rader", "markera rad", "select all rows", "select row", "växla till helskärmsläge", "stäng copilot-hubben", "föregående sida", "nästa sida", "ge feedback", "föregående steg i formuläret", "previous step", "visa ytterligare flikar", "show more tabs", "dela feedback", "share feedback", "växla till mörkt läge (förhandsversion)", "hoppa till huvudinnehåll", "dölj", "hide", "välj rad", "select row", "läs mer om miljöer", "läs mer om hanterade miljöer"] },
     { texts: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "här", "klicka här", "here", "click here"] },
     { texts: ["läs mer om inställningar", "säkra url:er", "microsoft partner network", "sekretesspolicy", "fler azure-resurser", "learn more about settings", "safe urls", "privacy policy", "more azure resources"] },
     { selectors: [".fxc-essentials-value", ".fxc-menu-collapseexpandall"], aria: ["feedback", "avbryt", "cancel"] },

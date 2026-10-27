@@ -106,7 +106,7 @@
 
   async function sweep() {
     var list = items();
-    var report = { frame: location.hostname, total: list.length, withExplanation: 0, skippedOnPurpose: 0, withUse: 0, found: {}, missing: [] };
+    var report = { frame: location.hostname, version: (globalThis.PW_EXPLANATIONS || []).length, total: list.length, withExplanation: 0, skippedOnPurpose: 0, withUse: 0, found: {}, missing: [] };
     for (var i = 0; i < list.length; i++) {
       var el = list[i];
       document.body.dispatchEvent(new MouseEvent("mouseover", { bubbles: true }));

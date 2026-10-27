@@ -104,3 +104,33 @@ på om du gör om det för en annan sajt. I den ordning de gjordes, 27 oktober 2
 - **Valt:** Den enda verkliga krocken, inbyggd webbläsare mot Chrome, togs upp med dig innan arbetet började, och du valde Chrome. Resten stämmer med skillen: bara läsa i kontot (skillens "Aldrig"-lista säger samma sak), `store/` för allt utom zip-filen, ingen uppladdning ("Ladda aldrig upp något själv"). Installationen i Chrome (steg 5) gjorde du själv, och den ändrar inget i Azure. Steg 8 (GitHub) väntar på ditt ja.
 - **Varför:** Uppdraget sa att jag skulle fråga om reglerna krockade med skillen. Jämförelsen lades fram för dig i efterhand, 2026-10-27, och du godkände den, liksom att Copilot Studio öppnades med din befintliga inloggning.
 - **Tänk på:** Lägg jämförelsen mellan uppdrag och skill i en enda fråga allra först, innan något byggs, även när du tror att det bara finns en krock.
+
+## 18. Skapa-formuläret öppnades, men fylldes aldrig i
+
+- **Valt:** Formuläret för en ny resursgrupp öppnades bara för att läsas. Inget skrevs i fälten, och fliken stängdes utan att Granska och skapa klickades.
+- **Varför:** Att öppna ett formulär skapar ingenting. Först knappen Skapa på sista sidan gör det. Formuläret var en del av punkt 1 (flödet för att skapa en resurs).
+- **Tänk på:** Skilj på att öppna något och att starta något. Ett formulär är ofarligt, en panel som startar en session kan vara det inte (se 10).
+
+## 19. Administrationscentren för Microsoft 365 och Power Platform
+
+- **Valt:** admin.cloud.microsoft och admin.powerplatform.microsoft.com finns med i version 1.0, på ditt beslut.
+- **Varför:** Du såg dem när du utforskade och ville ha dem förklarade. De hör ihop med resten: licenser, användare och miljöer styr vad du kan göra i Copilot Studio och Power Automate.
+- **Tänk på:** Varje ny adress ska in i manifestet, policyn och behörighetssvaren samtidigt. Kontrollera Webbplatsåtkomst efter omladdningen (se 12).
+
+## 20. Regler utan host kan läcka till andra sajter
+
+- **Valt:** Portalens regel för kolumnen Typ fick `host`, eftersom den gav fel bubbla på tio meddelanden i Power Platform-centret.
+- **Varför:** `[role="gridcell"] button` finns på många Microsoft-sajter men betyder olika saker. Allmänna regler (kolumnrubrik, filter) får gälla överallt, men bara om betydelsen är densamma.
+- **Tänk på:** När en ny sajt läggs till: läs svepets lista efter nycklar från andra sajter. Dyker de upp, kontrollera att bubblan stämmer.
+
+## 21. Bubblorna stänger varandra mellan sida och ramar
+
+- **Valt:** När musen rör sig i sidan eller en ram skickar tillägget `{ pwHide: 1 }` till de andra delarna, så att deras bubblor stängs.
+- **Varför:** En ram ligger i en egen process. Sidan märker inte när musen går in i ramen, så Cloud Shell-bubblan blev kvar. Meddelandet innehåller ingenting från sidan.
+- **Tänk på:** Sajter med ramar från andra adresser behöver det här. Prova genom att hovra i toppfältet och gå rakt in i ramen.
+
+## 22. En utvecklarmiljö skapades utan att någon bad om det
+
+- **Valt:** Miljön "Anthon Bäckström" (typ Utvecklare, skapad 2026-10-27) lämnades orörd och rapporterades till dig.
+- **Varför:** Den skapades troligen automatiskt när Copilot Studio öppnades via adressen ~personal under svepet. Att bara öppna en sajt räckte. Att ta bort den vore en ny ändring, och det är ditt beslut.
+- **Tänk på:** Vissa Microsoft-sajter skapar saker vid första besöket. Kolla miljöer och resurser före och efter ett svep, och tala om vad som har ändrats.

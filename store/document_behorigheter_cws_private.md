@@ -8,15 +8,15 @@ varje svar.
 
 ## Single purpose
 
-> Shows short Swedish explanations of buttons, menus and pages when the user hovers over them in Microsoft's cloud and AI web tools: the Azure portal, Foundry, Copilot Studio and Power Automate.
+> Shows short Swedish explanations of buttons, menus and pages when the user hovers over them in Microsoft's cloud and AI web tools: the Azure portal, Foundry, Copilot Studio, Power Automate, and the Microsoft 365 and Power Platform admin centers.
 
-Svenska: Visar korta förklaringar på svenska av knappar, menyer och sidor när man håller musen över dem i Microsofts moln- och AI-verktyg på webben: Azure-portalen, Foundry, Copilot Studio och Power Automate.
+Svenska: Visar korta förklaringar på svenska av knappar, menyer och sidor när man håller musen över dem i Microsofts moln- och AI-verktyg på webben: Azure-portalen, Foundry, Copilot Studio, Power Automate och administrationscentren för Microsoft 365 och Power Platform.
 
-Ett syfte: förklara gränssnittet. Fyra sajter, men samma sak på alla.
+Ett syfte: förklara gränssnittet. Sex sajter, men samma sak på alla.
 
 ## Behörigheter
 
-Tillägget ber om en behörighet, `storage`, och har content scripts på sex
+Tillägget ber om en behörighet, `storage`, och har content scripts på åtta
 adresser. Det finns inga `host_permissions`, ingen `activeTab`, `tabs` eller
 `scripting`.
 
@@ -28,16 +28,18 @@ Svenska: Sparar en inställning lokalt: om förklaringarna är på eller av. Ing
 
 ### Host permission justification (content script-adresserna)
 
-> The content script runs only on the four Microsoft tools it explains and on two Microsoft frame hosts that the Azure portal uses to show its pages:
+> The content script runs only on the six Microsoft tools it explains and on two Microsoft frame hosts that the Azure portal uses to show its pages:
 > - https://portal.azure.com/* (Azure portal)
 > - https://*.reactblade.portal.azure.net/* (frames inside the Azure portal that show lists, the create page and cost analysis)
 > - https://ux.console.azure.com/* (the Cloud Shell frame inside the Azure portal)
 > - https://ai.azure.com/* (Foundry)
 > - https://copilotstudio.microsoft.com/* (Copilot Studio)
 > - https://make.powerautomate.com/* (Power Automate)
+> - https://admin.cloud.microsoft/* (Microsoft 365 admin center)
+> - https://admin.powerplatform.microsoft.com/* (Power Platform admin center)
 > It reads the labels and attributes of the site's own buttons (aria-label, data-testid, class names, link paths) to choose which explanation to show. It never stores or sends any page content, makes no network requests and never clicks anything.
 
-Svenska: Skriptet körs bara på de fyra verktyg det förklarar, och på två adresser som Azure-portalen visar sina sidor i (ramar). Det läser namnen på sajtens egna knappar för att välja förklaring. Det sparar eller skickar aldrig något från sidan, gör inga nätverksanrop och klickar aldrig.
+Svenska: Skriptet körs bara på de sex verktyg det förklarar, och på två adresser som Azure-portalen visar sina sidor i (ramar). Det läser namnen på sajtens egna knappar för att välja förklaring. Det sparar eller skickar aldrig något från sidan, gör inga nätverksanrop och klickar aldrig.
 
 ## Varför inga fler behörigheter
 
@@ -46,9 +48,9 @@ Svenska: Skriptet körs bara på de fyra verktyg det förklarar, och på två ad
 | `host_permissions` | Ett content script i manifestet behöver det inte. Det räcker med `matches`. |
 | `activeTab` | Den gäller först efter ett klick på ikonen. Förklaringarna ska synas direkt. |
 | `tabs`, `scripting` | Tillägget öppnar inga flikar och lägger inte in skript i efterhand. |
-| `<all_urls>` eller `*.azure.com` | Bara de sex adresserna ovan har knappar att förklara. Smalast möjliga. |
+| `<all_urls>` eller `*.azure.com` | Bara de åtta adresserna ovan har knappar att förklara. Smalast möjliga. |
 
-`all_frames` gäller bara de två ram-adresserna, inte de fyra sajterna.
+`all_frames` gäller bara de två ram-adresserna, inte de sex sajterna.
 
 ## Remote code
 

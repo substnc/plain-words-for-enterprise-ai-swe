@@ -14,9 +14,9 @@ apps namn ska vara fritt från deras märken (se docs/beslut.md).
 
 ## Kort beskrivning (från manifest.json, max 132 tecken)
 
-Inofficiell hjälp: håll markören över en knapp i Azure-portalen, Foundry, Copilot Studio eller Power Automate och läs vad den gör.
+Inofficiell hjälp: håll markören över en knapp i Azure-portalen, Foundry, Copilot Studio, Power Automate m.fl. och läs vad den gör.
 
-(130 tecken. Den går inte att ändra i butiken, bara i manifest.json, och då
+(131 tecken. Den går inte att ändra i butiken, bara i manifest.json, och då
 måste versionen höjas.)
 
 ## Kategori
@@ -39,6 +39,8 @@ Det här förklaras:
 • Foundry: modellkatalogen, agenter, kunskap, verktyg, kvoter, nycklar och projektinställningar.
 • Copilot Studio: agenter, arbetsflöden, appar och miljöer.
 • Power Automate: att skapa flöden, mallar, kopplingar och dina flöden.
+• Microsoft 365-administrationscentret: användare, licenser, grupper, fakturering och Copilot.
+• Power Platform-administratörscentret: miljöer, säkerhet, licenser och Microsofts meddelanden.
 
 Tillägget varnar där det kan kosta pengar, till exempel när en produkt från ett annat företag ska köpas, och förklarar ord som blivit fel översatta.
 
@@ -46,7 +48,7 @@ Gjort för dig som aldrig har använt verktygen och vill förstå dem direkt, p�
 
 Integritet: tillägget samlar inte in något och skickar inget någonstans. Det enda som sparas är om förklaringarna är på eller av, och det sparas bara i din webbläsare. Tillägget klickar aldrig och ändrar ingenting i dina konton.
 
-Plain Words for Enterprise AI SWE är ett fristående tillägg som fungerar med Microsoft Azure-portalen, Microsoft Foundry, Microsoft Copilot Studio och Microsoft Power Automate. Det är inte gjort av, godkänt av eller kopplat till Microsoft. Microsoft, Azure, Copilot och Power Automate är varumärken som tillhör Microsoft Corporation.
+Plain Words for Enterprise AI SWE är ett fristående tillägg som fungerar med Microsoft Azure-portalen, Microsoft Foundry, Microsoft Copilot Studio, Microsoft Power Automate och administrationscentren för Microsoft 365 och Power Platform. Det är inte gjort av, godkänt av eller kopplat till Microsoft. Microsoft, Azure, Copilot och Power Automate är varumärken som tillhör Microsoft Corporation.
 
 ## Bilder
 

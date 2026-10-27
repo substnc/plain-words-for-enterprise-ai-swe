@@ -1,8 +1,8 @@
 # Plain Words for Enterprise AI SWE
 
-Microsofts moln- och AI-verktyg förklarade med vanliga ord, på svenska: Azure-portalen, Foundry, Copilot Studio och Power Automate.
+Microsofts moln- och AI-verktyg förklarade med vanliga ord, på svenska: Azure-portalen, Foundry, Copilot Studio, Power Automate och administrationscentren för Microsoft 365 och Power Platform.
 
-Ett webbläsartillägg för Chrome som förklarar knappar, flikar och menyer i Azure-portalen, Foundry, Copilot Studio och Power Automate med vardagliga ord. Håll musen still över något i en halv sekund så dyker en pratbubbla upp. Den säger vad saken är, och under rubriken Nytta när du har användning av den.
+Ett webbläsartillägg för Chrome som förklarar knappar, flikar och menyer i Azure-portalen, Foundry, Copilot Studio, Power Automate och administrationscentren för Microsoft 365 och Power Platform med vardagliga ord. Håll musen still över något i en halv sekund så dyker en pratbubbla upp. Den säger vad saken är, och under rubriken Nytta när du har användning av den.
 
 **Så installerar du det:** läs [LASMIG.md](LASMIG.md).
 

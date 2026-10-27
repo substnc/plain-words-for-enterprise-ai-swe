@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Plain Words for Enterprise AI SWE",
   "version": "1.0.0",
-  "description": "Inofficiell hjälp: håll markören över en knapp i Azure-portalen, Foundry, Copilot Studio eller Power Automate och läs vad den gör.",
+  "description": "Inofficiell hjälp: håll markören över en knapp i Azure-portalen, Foundry, Copilot Studio, Power Automate m.fl. och läs vad den gör.",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
@@ -28,7 +28,9 @@
         "https://portal.azure.com/*",
         "https://ai.azure.com/*",
         "https://copilotstudio.microsoft.com/*",
-        "https://make.powerautomate.com/*"
+        "https://make.powerautomate.com/*",
+        "https://admin.cloud.microsoft/*",
+        "https://admin.powerplatform.microsoft.com/*"
       ],
       "js": [
         "explanations.js",
