@@ -59,19 +59,19 @@ def slide(n, key, chip, head1, head2, where, fname):
     d.text((72, 264), head2, font=F(52, True), fill=(0x7f, 0x7f, 0x7f))
     d.text((72, 690), where, font=F(24), fill=ACCENT)
     d.text((72, 724), "Inofficiellt tillägg. Plain Words for Enterprise AI SWE.", font=F(20), fill=(0x7f, 0x7f, 0x7f))
-    # Knappen som musen står på, ritad neutralt, och bubblan under den.
+    # Knappen som pekaren står på, ritad neutralt, och bubblan under den.
     fc = F(26); cw = int(d.textlength(chip, font=fc)) + 56
     cx, cy = 700, 150
     d.rounded_rectangle([cx, cy, cx + cw, cy + 60], radius=12, fill=(0x26, 0x28, 0x2b))
     d.text((cx + 28, cy + 14), chip, font=fc, fill=(255, 255, 255))
-    # muspekare
+    # pekaren
     px, py = cx + min(cw - 30, 90), cy + 34
     d.polygon([(px, py), (px, py + 34), (px + 9, py + 26), (px + 16, py + 41), (px + 22, py + 38), (px + 15, py + 24), (px + 26, py + 24)], fill=(255, 255, 255), outline=(0, 0, 0))
     b = bubble(key)
     img.paste(b, (cx, cy + 90), b)
     img.save(f"{OUT}/screenshots/{n}_screenshot_{fname}_1280x800.png")
 
-slide(1, "a-scheduled-flow", "Schemalagt molnflöde", "Håll musen still", "över en knapp", "I Power Automate", "schemalagt")
+slide(1, "a-scheduled-flow", "Schemalagt molnflöde", "Håll pekaren still", "över en knapp", "I Power Automate", "schemalagt")
 slide(2, "create-product-subscribe", "Konfigurera + prenumerera", "Varnar innan", "något kostar pengar", "I Azure-portalen", "prenumerera")
 slide(3, "resource-groups", "Resursgrupper", "Orden du möter", "hela tiden", "I Azure-portalen", "resursgrupper")
 slide(4, "f-nav-build", "Version", "Även ord som", "blivit fel översatta", "I Foundry", "version")
