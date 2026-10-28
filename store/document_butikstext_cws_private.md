@@ -1,7 +1,7 @@
 # Butikstext för Chrome Web Store
 
 Språk: svenska (välj Svenska som standardspråk under Store listing).
-Kontrollerat mot Chrome Web Stores krav 2026-10-27: beskrivning, ikon och
+Kontrollerat mot Chrome Web Stores krav 2026-10-27, omskrivet 2026-10-28 efter avslag för sökordsspam (Yellow Argon): beskrivning, ikon och
 minst en skärmbild krävs, ingen nyckelordsspam (samma ord högst fem gånger
 i onaturlig upprepning), inga anonyma omdömen.
 
@@ -25,7 +25,7 @@ Verktyg (Tools). Alternativ: Utbildning (Education).
 
 ## Lång beskrivning (klistras in i fältet Description)
 
-Ska du börja bygga med Microsofts moln och AI men förstår inte knapparna? Håll markören still över en knapp, så förklarar Plain Words vad den gör, med vardagliga ord på svenska.
+Ska du börja bygga i molnet och med AI men förstår inte knapparna? Håll markören still över en knapp, så förklarar Plain Words vad den gör, med vardagliga ord på svenska.
 
 Varje förklaring har tre delar:
 • Knappens eget namn, med det engelska ordet i parentes, så att du känner igen det i guider.
@@ -40,7 +40,7 @@ Det här förklaras:
 • Copilot Studio: agenter, arbetsflöden, appar och miljöer.
 • Power Automate: att skapa flöden, mallar, kopplingar och dina flöden.
 • Microsoft 365-administrationscentret: användare, licenser, grupper, fakturering och Copilot.
-• Power Platform-administratörscentret: miljöer, säkerhet, licenser och Microsofts meddelanden.
+• Power Platform-administratörscentret: miljöer, säkerhet, licenser och meddelanden om ändringar.
 
 Tillägget varnar där det kan kosta pengar, till exempel när en produkt från ett annat företag ska köpas, och förklarar ord som blivit fel översatta.
 
@@ -48,7 +48,7 @@ Gjort för dig som aldrig har använt verktygen och vill förstå dem direkt, p�
 
 Integritet: tillägget samlar inte in något och skickar inget någonstans. Det enda som sparas är om förklaringarna är på eller av, och det sparas bara i din webbläsare. Tillägget klickar aldrig och ändrar ingenting i dina konton.
 
-Plain Words for Enterprise AI SWE är ett fristående tillägg som fungerar med Microsoft Azure-portalen, Microsoft Foundry, Microsoft Copilot Studio, Microsoft Power Automate och administrationscentren för Microsoft 365 och Power Platform. Det är inte gjort av, godkänt av eller kopplat till Microsoft. Microsoft, Azure, Copilot och Power Automate är varumärken som tillhör Microsoft Corporation.
+Plain Words for Enterprise AI SWE är ett fristående tillägg. Det är inte gjort av, godkänt av eller kopplat till Microsoft. Produktnamnen ovan är varumärken som tillhör sina ägare.
 
 ## Bilder
 

@@ -134,3 +134,9 @@ på om du gör om det för en annan sajt. I den ordning de gjordes, 27 oktober 2
 - **Valt:** Miljön "Anthon Bäckström" (typ Utvecklare, skapad 2026-10-27) lämnades orörd och rapporterades till dig.
 - **Varför:** Den skapades troligen automatiskt när Copilot Studio öppnades via adressen ~personal under svepet. Att bara öppna en sajt räckte. Att ta bort den vore en ny ändring, och det är ditt beslut.
 - **Tänk på:** Vissa Microsoft-sajter skapar saker vid första besöket. Kolla miljöer och resurser före och efter ett svep, och tala om vad som har ändrats.
+
+## 23. Beskrivningen skrevs om efter avslag för sökordsspam
+
+- **Valt:** Varje produktnamn nämns en gång i punktlistan. Friskrivningen säger bara "Produktnamnen ovan är varumärken som tillhör sina ägare" i stället för att räkna upp dem igen.
+- **Varför:** Chrome Web Store avvisade version 1.0 (Yellow Argon) på grund av meningen där "Microsoft" stod sju gånger. Butiken räknar upprepning av samma ord, och en friskrivning räknas också.
+- **Tänk på:** Räkna hur många gånger varje märke står i den långa beskrivningen. Håll det under fem, och skriv friskrivningen utan namn.
