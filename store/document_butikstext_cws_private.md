@@ -39,6 +39,7 @@ Det här förklaras:
 • Foundry: modellkatalogen, agenter, kunskap, verktyg, kvoter, nycklar och projektinställningar.
 • Copilot Studio: agenter, arbetsflöden, appar och miljöer.
 • Power Automate: att skapa flöden, mallar, kopplingar och dina flöden.
+• Flödesdesignern: stegen, kopplingarna och om en åtgärd bara läser, gör något eller tar bort.
 • Microsoft 365-administrationscentret: användare, licenser, grupper, fakturering och Copilot.
 • Power Platform-administratörscentret: miljöer, säkerhet, licenser och meddelanden om ändringar.
 

@@ -88,6 +88,9 @@
   function nav365(id) {
     return '[data-automation-id="LeftNav' + id + 'NavToggler"]';
   }
+  // Flödesdesignern i Copilot Studio (samma designer kan visas i Power Automate).
+  var DESIGNER = /^(copilotstudio\.microsoft\.com|make\.powerautomate\.com)$/;
+  var PALETTE = '[data-testid="node-palette"]';
   function fLink(seg) {
     return ['a[href$="/' + seg + '"]', 'a[href*="/' + seg + '?"]'];
   }
@@ -3363,6 +3366,691 @@
       host: PPAC
     },
 
+    /* ---------------- Flödesdesignern (Copilot Studio och Power Automate) ---------------- */
+    {
+      key: "d-pal-agent",
+      name: "Agent",
+      text: "En AI-agent som gör en del av jobbet i flödet, till exempel läser ett mejl och avgör vad som ska hända.",
+      use: "När ett steg kräver omdöme, inte bara fasta regler.",
+      texts: ["agent", "agent"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-classify",
+      name: "Klassificera (Classify)",
+      text: "Låter AI sortera något i kategorier, till exempel om ett mejl är en fråga, ett klagomål eller en beställning.",
+      use: "När flödet ska göra olika saker beroende på vad det är som har kommit in.",
+      texts: ["klassificera", "classify"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-extract",
+      name: "Extrahera (Extract)",
+      text: "Låter AI plocka ut uppgifter ur text eller dokument, till exempel belopp och datum ur en faktura.",
+      use: "När uppgifterna finns i ett mejl eller en fil och ska in i en lista eller ett system.",
+      texts: ["extrahera", "extract"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-copilot",
+      name: "Copilot",
+      text: "Ställer en fråga till Copilot mitt i flödet och använder svaret i nästa steg.",
+      use: "När AI ska skriva, sammanfatta eller översätta något åt flödet.",
+      texts: ["copilot", "copilot"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-human",
+      name: "Mänsklig granskning (Human review)",
+      text: "Pausar flödet tills en person har godkänt eller svarat, till exempel en chef eller prisansvarig.",
+      use: "När ett beslut inte ska tas av datorn ensam, som ett pris eller en utbetalning.",
+      texts: ["mänsklig granskning", "human review"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-connector",
+      name: "Koppling (Connector)",
+      text: "Ett steg som gör något i en annan tjänst, som Outlook, Teams eller Excel. Du väljer tjänst och sedan vad som ska göras.",
+      use: "När flödet ska läsa eller ändra något i en annan app.",
+      texts: ["koppling", "connector"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-function",
+      name: "Funktion (Function)",
+      text: "Inbyggda verktyg för data, tid och webbanrop, till exempel att vänta en dag eller göra om en lista till en tabell.",
+      obvious: true,
+      texts: ["funktion", "function"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-variable",
+      name: "Variabel (Variable)",
+      text: "En plats där flödet sparar ett värde för att använda senare, till exempel en summa som räknas upp.",
+      obvious: true,
+      texts: ["variabel", "variable"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-condition",
+      name: "Om/annars (If/else)",
+      text: "Delar flödet i två vägar beroende på ett villkor, till exempel om beloppet är över 1 000 kronor.",
+      use: "När olika saker ska hända i olika fall.",
+      texts: ["om/annars", "if/else"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-loop",
+      name: "Loop",
+      text: "Upprepar stegen inuti för varje sak i en lista, till exempel varje rad i en Excel-fil.",
+      use: "När samma sak ska göras för många saker i taget.",
+      texts: ["loop", "loop"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-note",
+      name: "Anteckning (Note)",
+      text: "En lapp på arbetsytan för dig själv eller kollegor. Den gör ingenting när flödet körs.",
+      obvious: true,
+      texts: ["anteckning", "note"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-pal-heading",
+      name: "Lägg till (Add)",
+      text: "Allt du kan lägga till som ett steg i flödet. Klicka på en sort, eller dra den till arbetsytan.",
+      obvious: true,
+      texts: ["lägg till", "add"],
+      tags: ["h2", "h3"],
+      within: PALETTE,
+      host: DESIGNER
+    },
+    {
+      key: "d-panel-heading",
+      name: "Valt steg",
+      text: "Namnet på steget du har valt. Inställningarna för det står under.",
+      obvious: true,
+      selectors: ['[data-testid="node-panel"] h2'],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-heading",
+      name: "Välj ett anslutningsprogram (Choose a connector)",
+      text: "Listan över alla tjänster som flödet kan kopplas till, över tusen stycken. Sök på appens namn.",
+      obvious: true,
+      selectors: ['[data-testid="add-action-panel"] h2'],
+      hasText: /^(välj ett anslutningsprogram|choose a connector)/,
+      host: DESIGNER
+    },
+    {
+      key: "d-panel-title",
+      name: "Var du är i panelen",
+      text: "Rubriken visar vilken lista du tittar på. Lägg till högst upp tar dig tillbaka till början.",
+      obvious: true,
+      selectors: ['[data-testid="add-action-panel"] h2'],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-search",
+      name: "Sök funktioner (Search functions)",
+      text: "Skriv vad du vill göra, till exempel vänta eller tid, så visas de funktioner som passar.",
+      obvious: true,
+      aria: ["sök funktioner", "sökfunktioner", "search functions"],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-trigger",
+      name: "Start (utlösare)",
+      text: "Det som får flödet att börja, till exempel en knapp, ett nytt mejl eller en viss tid.",
+      use: "När du ska bestämma när flödet ska köras. Klicka för att välja utlösartyp.",
+      selectors: ['.react-flow__node-start'],
+      aria: [/^triggernod/, /^trigger node/],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-condition",
+      name: "Om/annars (If/else)",
+      text: "Ett vägskäl. Flödet går till vänster eller höger beroende på om villkoret stämmer.",
+      use: "När du vill se vilket villkor som styr. Klicka för att ändra det.",
+      selectors: ['[class*="react-flow__node-"][class*="condition" i]', '[class*="react-flow__node-"][class*="ifelse" i]', '[class*="react-flow__node-"][class*="switch" i]'],
+      aria: [/^villkorsnod/, /^condition node/],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-loop",
+      name: "Loop",
+      text: "Stegen inuti upprepas för varje sak i en lista.",
+      obvious: true,
+      selectors: ['[class*="react-flow__node-"][class*="loop" i]', '[class*="react-flow__node-"][class*="foreach" i]'],
+      aria: [/^loopnod/, /^loop node/],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-agent",
+      name: "Agent",
+      text: "Ett steg där en AI-agent gör en del av jobbet, utifrån de instruktioner du ger den.",
+      use: "När du vill ändra vad agenten ska göra. Klicka och skriv instruktionerna.",
+      selectors: ['[class*="react-flow__node-"][class*="agent" i]'],
+      aria: [/^agentnod/, /^agent node/],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-note",
+      name: "Anteckning (Note)",
+      text: "En lapp på arbetsytan. Den gör ingenting när flödet körs.",
+      obvious: true,
+      selectors: ['[class*="react-flow__node-"][class*="note" i]', '[class*="react-flow__node-"][class*="sticky" i]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-action",
+      name: "Steg (Åtgärd)",
+      text: "Ett steg i flödet som gör en sak, till exempel uppdaterar en lista eller skickar ett meddelande. Stegen körs i pilarnas ordning.",
+      use: "När du vill se eller ändra vad steget gör. Klicka på det för att öppna inställningarna.",
+      aria: [/^åtgärdsnod/, /^action node/],
+      selectors: ['.react-flow__node-connector'],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-badge",
+      name: "Behöver konfigureras (Needs configuration)",
+      text: "Steget saknar inställningar och kan inte köras än, till exempel vilket konto eller vilken lista det gäller.",
+      use: "När flödet inte går att publicera. Gå igenom alla steg med det här märket.",
+      selectors: ['[data-testid="validation-badge"]'],
+      texts: ["behöver konfigureras", "needs configuration"],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-else",
+      name: "Annars (Else)",
+      text: "Vägen flödet tar när villkoret inte stämmer.",
+      obvious: true,
+      texts: ["annars", "else"],
+      within: "[data-testid=\"canvas-node\"]",
+      host: DESIGNER
+    },
+    {
+      key: "d-node-handle",
+      name: "Anslutningspunkt",
+      text: "Punkten där steg kopplas ihop. Linjen visar i vilken ordning stegen körs.",
+      obvious: true,
+      aria: [/anslutningspunkt för/, /connection point for/, /handle for/],
+      host: DESIGNER
+    },
+    {
+      key: "d-node-test",
+      name: "Testa steget (Test)",
+      text: "Kör bara det här steget. Det gör saker på riktigt, till exempel skickar ett meddelande.",
+      use: "När du vill kontrollera ett steg utan att köra hela flödet.",
+      aria: [/^testa /, /^test /],
+      within: "[data-testid=\"canvas-node\"]",
+      host: DESIGNER
+    },
+    {
+      key: "d-node-delete",
+      name: "Ta bort steget (Delete)",
+      text: "Tar bort steget ur flödet. Ändringen sparas först när du sparar.",
+      obvious: true,
+      aria: [/^ta bort /, /^delete /],
+      within: "[data-testid=\"canvas-node\"]",
+      host: DESIGNER
+    },
+    {
+      key: "d-node-add",
+      name: "Lägg till ett steg (Add step)",
+      text: "Lägger till ett nytt steg efter det här.",
+      obvious: true,
+      selectors: ['[data-testid="add-button"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-canvas-fit",
+      name: "Anpassa till vy (Fit view)",
+      text: "Zoomar så att hela flödet syns på skärmen.",
+      obvious: true,
+      selectors: ['[data-testid="fit-view"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-canvas-tidy",
+      name: "Städa upp och ordna noder (Tidy up)",
+      text: "Flyttar stegen så att de står i prydliga rader. Det ändrar inte vad flödet gör.",
+      obvious: true,
+      aria: ["städa upp och ordna noder", "tidy up"],
+      host: DESIGNER
+    },
+    {
+      key: "d-canvas-orient",
+      name: "Växla layout (Orientation)",
+      text: "Byter mellan att visa flödet uppifrån och ned eller från vänster till höger.",
+      obvious: true,
+      selectors: ['[data-testid="toggle-orientation"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-panel-trigger-type",
+      name: "Utlösartyp (Trigger type)",
+      text: "Vad som startar flödet: manuellt med en knapp, när något händer i en annan tjänst, eller på en bestämd tid.",
+      use: "När flödet ska starta av sig självt i stället för när du klickar.",
+      aria: [/^utlösartyp/, /^trigger type/],
+      host: DESIGNER
+    },
+    {
+      key: "d-panel-add-input",
+      name: "Lägg till indata (Add input)",
+      text: "Lägger till en uppgift som den som startar flödet ska fylla i, till exempel ett namn eller ett belopp.",
+      obvious: true,
+      texts: ["lägg till indata", "add an input", "add input"],
+      host: DESIGNER
+    },
+    {
+      key: "d-panel-more",
+      name: "Fler alternativ (More options)",
+      text: "Fler val för steget, till exempel att byta namn på det.",
+      obvious: true,
+      selectors: ['[data-testid="node-panel-overflow-menu"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-name",
+      name: "Flödets namn",
+      text: "Namnet på flödet. Klicka för att byta till något du känner igen.",
+      obvious: true,
+      selectors: ['[data-testid="workflow-name-rename"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-build",
+      name: "Bygg (Build)",
+      text: "Där du bygger flödet steg för steg.",
+      obvious: true,
+      texts: ["bygg", "build"],
+      tags: ["li"],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-activity",
+      name: "Aktivitet (Activity)",
+      text: "Historik över varje gång flödet har körts, och om det gick bra eller fel.",
+      use: "När du undrar varför något inte hände. Där ser du vilket steg som gick fel.",
+      texts: ["aktivitet", "activity"],
+      tags: ["li"],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-monitor",
+      name: "Övervaka (Monitor)",
+      text: "Statistik över hur flödet mår över tid, till exempel hur ofta det går fel.",
+      obvious: true,
+      texts: ["övervaka", "monitor"],
+      tags: ["li"],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-versions",
+      name: "Versionshistorik (Version history)",
+      text: "Tidigare sparade versioner av flödet, så att du kan gå tillbaka.",
+      obvious: true,
+      selectors: ['[data-testid="version-history-button"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-run",
+      name: "Run (Testkör)",
+      text: "Kör flödet en gång för att testa det. Det gör saker på riktigt, till exempel skickar meddelanden.",
+      use: "När du har byggt klart. Testa med dig själv som mottagare först.",
+      selectors: ['[data-testid="test-button"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-more",
+      name: "Fler alternativ (More options)",
+      text: "Fler val för hela flödet, till exempel att kopiera eller exportera det.",
+      obvious: true,
+      selectors: ['[data-testid="command-bar-more-options"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-review",
+      name: "Granska (Review)",
+      text: "Listar problem i flödet som måste rättas, till exempel steg som saknar inställningar.",
+      use: "När Publicera inte går att klicka på. Siffran visar hur många problem som finns.",
+      selectors: ['[data-testid="review-button"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-top-publish",
+      name: "Publicera (Publish)",
+      text: "Gör flödet aktivt, så att det startar av sig självt när utlösaren händer. Innan dess körs det bara när du testar.",
+      use: "När flödet är testat och klart. Rätta alla fel först.",
+      selectors: ['[data-testid="publish-button"]', '[data-testid="publish-button-backdrop"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-search",
+      name: "Sök åtgärder, utlösare och kopplingar",
+      text: "Skriv vad du vill göra eller vilken app det gäller, till exempel mejl eller Excel.",
+      obvious: true,
+      aria: [/^sökåtgärder/, /^sök åtgärder/, /^search actions/],
+      selectors: ['[data-testid="add-action-operation-search"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-outlook",
+      name: "Office 365 Outlook",
+      text: "Kopplingen till e-post och kalender i Outlook. Med den kan flödet skicka mejl, läsa inkorgen eller boka möten.",
+      use: "När flödet ska skicka ett mejl eller reagera när ett mejl kommer.",
+      aria: [/^välj anslutning office outlook/, /^välj anslutning outlook/, /^select connector office outlook/],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-teams",
+      name: "Microsoft Teams",
+      text: "Kopplingen till Teams. Med den kan flödet skriva i en kanal eller chatt, eller reagera på meddelanden.",
+      use: "När flödet ska meddela någon, till exempel att en prislista har uppdaterats.",
+      aria: [/^välj anslutning microsoft teams/, /^select connector microsoft teams/],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-sharepoint",
+      name: "SharePoint",
+      text: "Kopplingen till företagets gemensamma filer och listor. Flödet kan skapa, läsa och ändra rader och dokument.",
+      use: "När uppgifterna ligger i en SharePoint-lista eller ett dokumentbibliotek.",
+      aria: [/^välj anslutning sharepoint/, /^select connector sharepoint/],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-onedrive",
+      name: "OneDrive",
+      text: "Kopplingen till filer i OneDrive. Flödet kan spara, flytta och läsa filer.",
+      use: "När flödet ska spara en bilaga eller hämta en fil.",
+      aria: [/^välj anslutning onedrive/, /^select connector onedrive/],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-excel",
+      name: "Excel Online (företag)",
+      text: "Kopplingen till Excel-filer i OneDrive eller SharePoint. Flödet kan läsa och ändra rader i en tabell.",
+      use: "När en prislista eller annan lista ligger i Excel. Uppgifterna måste ligga i en tabell, inte bara i celler.",
+      aria: [/^välj anslutning excel/, /^select connector excel/],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-dataverse",
+      name: "Microsoft Dataverse",
+      text: "Kopplingen till databasen i Power Platform, där appar och agenter sparar sina uppgifter.",
+      obvious: true,
+      aria: [/^välj anslutning microsoft dataverse/, /^select connector microsoft dataverse/],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-connector",
+      name: "Koppling (Connector)",
+      text: "En koppling till en annan tjänst, där flödet kan läsa eller göra saker. Första gången loggar du in i tjänsten.",
+      use: "När flödet ska använda en annan app. Kopplingar märkta Premium kräver en dyrare licens.",
+      aria: [/^välj anslutning /, /^select connector /],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-favorite",
+      name: "Lägg till i favoriter (Favorite)",
+      text: "Lägger den överst bland dina favoriter, så att du hittar den snabbt.",
+      obvious: true,
+      selectors: ['[data-testid="favorite-button"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-pick-info",
+      name: "Info",
+      text: "Visar Microsofts beskrivning av kopplingen eller åtgärden.",
+      obvious: true,
+      selectors: ['[data-testid="action-item-info"]'],
+      host: DESIGNER
+    },
+    {
+      key: "d-act-trigger",
+      name: "Utlösare (Trigger)",
+      text: "Startar flödet när något händer i tjänsten, till exempel när ett nytt meddelande kommer.",
+      use: "När flödet ska starta av sig självt.",
+      aria: [/^välj åtgärd (när|vid) /, /^select action when /],
+      host: DESIGNER
+    },
+    {
+      key: "d-act-delete",
+      name: "Åtgärd som tar bort",
+      text: "Den här åtgärden tar bort eller arkiverar något i tjänsten. Det går oftast inte att ångra.",
+      use: "När något verkligen ska bort. Testa på något oviktigt först.",
+      aria: [/^välj åtgärd (ta bort|radera|arkivera|avsluta|inaktivera)/, /^select action (delete|remove|archive)/],
+      host: DESIGNER
+    },
+    {
+      key: "d-act-read",
+      name: "Åtgärd som hämtar",
+      text: "Den här åtgärden läser bara uppgifter från tjänsten och ändrar ingenting.",
+      use: "När ett senare steg behöver uppgifterna, till exempel innehållet i ett meddelande.",
+      aria: [/^välj åtgärd (hämta|lista|få|sök|hitta|läs|visa|skaffa)/, /^select action (get|list|search|find|read)/],
+      host: DESIGNER
+    },
+    {
+      key: "d-act-write",
+      name: "Åtgärd som gör något",
+      text: "Den här åtgärden skapar, skickar eller ändrar något i tjänsten på riktigt, till exempel postar ett meddelande.",
+      use: "När flödet ska göra en ändring. Kör ett test med dig själv som mottagare först.",
+      aria: [/^välj åtgärd (skapa|lägg till|lägga till|publicera|posta|skicka|svara|uppdatera|uppdatering|ändra|flytta|starta|kör|bjud in|ladda upp|kopiera|byt|ange|sätt|godkänn)/, /^select action (create|add|post|send|reply|update|move|start|run|invite|upload|copy|set)/],
+      host: DESIGNER
+    },
+    {
+      key: "d-act-other",
+      name: "Åtgärd (Action)",
+      text: "En sak som flödet kan göra i tjänsten. Klicka för att lägga till den som ett steg och fylla i inställningarna.",
+      obvious: true,
+      aria: [/^välj åtgärd /, /^select action /],
+      host: DESIGNER
+    },
+    {
+      key: "d-fcat-data-operations",
+      name: "Data Operations (funktioner)",
+      text: "Verktyg för att göra om data: plocka ut värden, filtrera listor och skapa tabeller.",
+      obvious: true,
+      aria: [/^bläddra bland data operations/, /^browse data operations/],
+      host: DESIGNER
+    },
+    {
+      key: "d-fcat-date-time",
+      name: "Date Time (funktioner)",
+      text: "Räkna med datum och tid, till exempel lägga till tre dagar eller byta tidszon.",
+      obvious: true,
+      aria: [/^bläddra bland date time/, /^browse date time/],
+      host: DESIGNER
+    },
+    {
+      key: "d-fcat-http",
+      name: "HTTP (funktioner)",
+      text: "Anropar andra webbtjänster direkt, utan färdig koppling. Kräver lite teknisk kunskap.",
+      obvious: true,
+      aria: [/^bläddra bland http/, /^browse http/],
+      host: DESIGNER
+    },
+    {
+      key: "d-fcat-schedule",
+      name: "Schedule (funktioner)",
+      text: "Låter flödet vänta, en viss tid eller till ett visst datum.",
+      obvious: true,
+      aria: [/^bläddra bland schedule/, /^browse schedule/],
+      host: DESIGNER
+    },
+    {
+      key: "d-fcat-request",
+      name: "Request (funktioner)",
+      text: "Svarar den som har startat flödet via ett webbanrop.",
+      obvious: true,
+      aria: [/^bläddra bland request/, /^browse request/],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-compose",
+      name: "Compose",
+      text: "Sätter ihop ett värde av text och uppgifter från tidigare steg, så att du kan använda det senare.",
+      obvious: true,
+      aria: ["välj funktion compose", "select function compose"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-parse-json",
+      name: "Parse JSON",
+      text: "Gör om data i formatet JSON, som webbtjänster ofta svarar med, till fält som nästa steg kan använda.",
+      obvious: true,
+      aria: ["välj funktion parse json", "select function parse json"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-filter-array",
+      name: "Filter array",
+      text: "Behåller bara de rader i en lista som stämmer med ett villkor, till exempel priser över 100 kronor.",
+      obvious: true,
+      aria: ["välj funktion filter array", "select function filter array"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-create-csv-table",
+      name: "Create CSV table",
+      text: "Gör om en lista till en tabell som går att öppna i Excel.",
+      obvious: true,
+      aria: ["välj funktion create csv table", "select function create csv table"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-select",
+      name: "Select",
+      text: "Väljer ut vissa fält ur varje rad i en lista, till exempel bara namn och pris.",
+      obvious: true,
+      aria: ["välj funktion select", "select function select"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-join",
+      name: "Join",
+      text: "Sätter ihop alla värden i en lista till en text, till exempel med komma emellan.",
+      obvious: true,
+      aria: ["välj funktion join", "select function join"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-create-html-table",
+      name: "Create HTML table",
+      text: "Gör om en lista till en tabell som går att visa i ett mejl.",
+      obvious: true,
+      aria: ["välj funktion create html table", "select function create html table"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-convert-time-zone",
+      name: "Convert time zone",
+      text: "Byter en tid från en tidszon till en annan, till exempel från UTC till svensk tid.",
+      obvious: true,
+      aria: ["välj funktion convert time zone", "select function convert time zone"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-add-to-time",
+      name: "Add to time",
+      text: "Lägger till tid till ett datum, till exempel tre dagar efter beställningen.",
+      obvious: true,
+      aria: ["välj funktion add to time", "select function add to time"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-subtract-from-time",
+      name: "Subtract from time",
+      text: "Drar bort tid från ett datum, till exempel en vecka före mötet.",
+      obvious: true,
+      aria: ["välj funktion subtract from time", "select function subtract from time"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-current-time",
+      name: "Current time",
+      text: "Hämtar tiden just nu.",
+      obvious: true,
+      aria: ["välj funktion current time", "select function current time"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-get-future-time",
+      name: "Get future time",
+      text: "Räknar fram en tid i framtiden från nu, till exempel om två timmar.",
+      obvious: true,
+      aria: ["välj funktion get future time", "select function get future time"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-get-past-time",
+      name: "Get past time",
+      text: "Räknar fram en tid bakåt från nu, till exempel för sju dagar sedan.",
+      obvious: true,
+      aria: ["välj funktion get past time", "select function get past time"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-http",
+      name: "HTTP",
+      text: "Skickar ett anrop till en webbadress och får ett svar. Används för tjänster som saknar koppling.",
+      obvious: true,
+      aria: ["välj funktion http", "select function http"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-http-webhook",
+      name: "HTTP Webhook",
+      text: "Väntar tills en annan tjänst hör av sig via en webbadress, och fortsätter sedan.",
+      obvious: true,
+      aria: ["välj funktion http webhook", "select function http webhook"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-http-with-swagger",
+      name: "HTTP with Swagger",
+      text: "Anropar en webbtjänst som har en beskrivning (Swagger), så att fälten fylls i lättare.",
+      obvious: true,
+      aria: ["välj funktion http with swagger", "select function http with swagger"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-response",
+      name: "Response",
+      text: "Skickar ett svar tillbaka till den som startade flödet via ett webbanrop.",
+      obvious: true,
+      aria: ["välj funktion response", "select function response"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-delay",
+      name: "Delay",
+      text: "Väntar en viss tid innan nästa steg, till exempel en timme.",
+      obvious: true,
+      aria: ["välj funktion delay", "select function delay"],
+      host: DESIGNER
+    },
+    {
+      key: "d-fn-delay-until",
+      name: "Delay until",
+      text: "Väntar till ett visst datum och klockslag innan nästa steg.",
+      obvious: true,
+      aria: ["välj funktion delay until", "select function delay until"],
+      host: DESIGNER
+    },
+
     /* ---------------- Fler saker som svepet hittade i portalen ---------------- */
     { key: "rm-menu-root", name: "Resource Manager", text: "Azures system för att skapa och hålla ordning på resurser. Här finns listorna över allt du har.", obvious: true, texts: ["resource manager"], within: ".fxc-menu-item" },
     { key: "rm-menu-favorites", name: "Favoritresurser (Favorite resources)", text: "Resurserna du har stjärnmärkt.", obvious: true, texts: ["favoritresurser", "favorite resources"], within: ".fxc-menu-item" },
@@ -3444,7 +4132,7 @@
     { texts: ["uppdatera", "refresh", "feedback", "ge feedback", "give feedback", "byt namn", "rename", "välj alla objekt", "select all items"] },
     { texts: ["< föregående", "nästa >", "< previous", "next >", "utseende", "appearance", "språk + region", "language + region"] },
     { texts: ["läs mer", "learn more", "läs mer om kataloger.", "learn more about directories.", "mer information"] },
-    { aria: ["uppdatera", "refresh", "välj alla rader", "markera rad", "select all rows", "select row", "växla till helskärmsläge", "stäng copilot-hubben", "föregående sida", "nästa sida", "ge feedback", "föregående steg i formuläret", "previous step", "visa ytterligare flikar", "show more tabs", "dela feedback", "share feedback", "växla till mörkt läge (förhandsversion)", "hoppa till huvudinnehåll", "dölj", "hide", "välj rad", "select row", "läs mer om miljöer", "läs mer om hanterade miljöer"] },
+    { aria: ["uppdatera", "refresh", "välj alla rader", "markera rad", "select all rows", "select row", "växla till helskärmsläge", "stäng copilot-hubben", "föregående sida", "nästa sida", "ge feedback", "föregående steg i formuläret", "previous step", "visa ytterligare flikar", "show more tabs", "dela feedback", "share feedback", "växla till mörkt läge (förhandsversion)", "hoppa till huvudinnehåll", "dölj", "hide", "välj rad", "select row", "läs mer om miljöer", "läs mer om hanterade miljöer", "tillbaka till huvudvyn", "tillbaka till funktionskategorier", "stäng panel", "dölj", "zooma in", "zooma ut", "clear"] },
     { texts: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "här", "klicka här", "here", "click here"] },
     { texts: ["läs mer om inställningar", "säkra url:er", "microsoft partner network", "sekretesspolicy", "fler azure-resurser", "learn more about settings", "safe urls", "privacy policy", "more azure resources"] },
     { selectors: [".fxc-essentials-value", ".fxc-menu-collapseexpandall"], aria: ["feedback", "avbryt", "cancel"] },
@@ -3453,6 +4141,7 @@
     { selectors: ['[data-testid="account-profile-card-sign-out"]', '[data-testid="skip-to-main-content-link"]', '#PPUXOfficeHeaderSkipButton', '[data-testid="fn-nav-rail-header"]', '[data-automation-id="FeedbackSmileyButton"]', '#shell-Feedback'] },
     { aria: ["skicka feedback", "send feedback", "stäng meddelande", "dismiss", "jag förstår", "got it", "föregående", "nästa", "previous", "next"], texts: ["visa alla", "see all", "jag förstår", "got it"] },
     { selectors: ['button[role="tab"][aria-label^="Objekt"]', 'button[role="tab"][aria-label^="Item"]'] },
+    { selectors: ['[data-testid="save-button"]', '[data-testid="zoom-in"]', '[data-testid="zoom-out"]', '[data-testid="node-panel-close-button"]', '[data-testid="feedback-button"]'] },
     { aria: ["vänstra navigeringspanelen", "left navigation pane", "öppna", "open", "kopiera", "copy"] }
   ];
 })();

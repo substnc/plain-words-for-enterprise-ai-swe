@@ -393,3 +393,38 @@ Power Platform-administratörscentret (admin.powerplatform.microsoft.com)
 
 Skydd mot kvarhängande bubblor mellan sida och ramar: provat med riktig
 hovring. Cloud Shell-bubblan försvann när musen gick in i formulärets ram.
+
+
+Flödesdesignern i Copilot Studio, 2026-10-29
+============================================
+   PLATS   /environments/<m>/flows/new?creationMechanism=WorkflowsNew (adressen
+           från Anthon). Ett nytt, osparat utkast. Ingenting sparades.
+   BYGGD   React Flow, vanlig HTML (ingen canvas, inga ramar).
+   ANKARE  tid=node-palette (knappar med text), tid=canvas-node med aria
+           "Triggernod: …" / "Åtgärdsnod: …" och klass react-flow__node-<typ>,
+           tid=validation-badge, tid=add-button, tid=node-panel, tid=add-action-panel,
+           knappar överst: workflow-name-rename, version-history-button,
+           test-button, review-button, publish-button.
+           Kopplingar: aria "Välj anslutning: <namn>". Åtgärder: aria "Välj åtgärd:
+           <namn>". Funktionskategorier: aria "Bläddra bland <kategori>: N funktioner".
+           Funktioner: aria "Välj funktion: <namn>".
+   FEL     normalize() tar bort kolon och siffror, så mönstren måste skrivas utan
+           kolon ("välj anslutning teams") och "Office 365 Outlook" blir
+           "office outlook". Första svepet missade alla kopplingar på grund av det.
+   OBS     Ett klick på Koppling i panelen lade till ett tomt steg i utkastet.
+           Utkastet kastades. Chrome visade "Lämna webbplatsen?", som Anthon
+           stängde med Lämna. Det bekräftar att inget sparades.
+           Microsofts översättning: "Skaffa ett team" = Get a team (hämtar),
+           "Uppdateringskanal" = Update channel (gör något).
+   SVEP    Arbetsytan 18 / 4 / 24, sedan rubrikerna tillagda.
+           Väljaren för kopplingar 39 / 1 / 53 (allmänna regeln trasig), efter
+           rättning: alla kopplingar får bubbla (kontrollerat med 1DocStop,
+           Abbreviations, Teams).
+           Teams-åtgärder 214 / 2 / 221 (97 %), de 4 som saknades kontrollerade
+           efter rättning: alla rätt.
+           Funktionskategorier 5 / 2 / 10, Date Time 6 / 3 / 12, rubriker och
+           sökrutan tillagda efteråt.
+   SÄTT    Åtgärder förklaras efter första ordet: Hämta/Lista/Skaffa läser,
+           Skapa/Publicera/Skicka/Uppdatera gör något, Ta bort/Arkivera kan inte
+           ångras, När/Vid startar flödet. Över tusen kopplingar: egna bubblor
+           för de sex vanligaste, en allmän för resten.

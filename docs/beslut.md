@@ -140,3 +140,15 @@ på om du gör om det för en annan sajt. I den ordning de gjordes, 27 oktober 2
 - **Valt:** Varje produktnamn nämns en gång i punktlistan. Friskrivningen säger bara "Produktnamnen ovan är varumärken som tillhör sina ägare" i stället för att räkna upp dem igen.
 - **Varför:** Chrome Web Store avvisade version 1.0 (Yellow Argon) på grund av meningen där "Microsoft" stod sju gånger. Butiken räknar upprepning av samma ord, och en friskrivning räknas också.
 - **Tänk på:** Räkna hur många gånger varje märke står i den långa beskrivningen. Håll det under fem, och skriv friskrivningen utan namn.
+
+## 24. Flödesdesignern förklaras efter sort, inte rad för rad
+
+- **Valt:** Panelen Lägg till, stegen och knapparna får egna bubblor. Kopplingar får en egen bubbla för de sex vanligaste och en allmän för resten. Åtgärder förklaras efter första ordet (Hämta, Skapa, Ta bort, När), och alla 19 funktioner har en egen.
+- **Varför:** Det finns över tusen kopplingar med hundratals åtgärder var, och listan ändras hela tiden. Det viktigaste för en nybörjare är om en åtgärd bara läser, gör något eller tar bort.
+- **Tänk på:** `normalize` tar bort kolon och siffror. Skriv mönster som "välj anslutning teams", inte "välj anslutning: teams". Microsofts svenska har felöversättningar, så lägg till de ord svepet hittar (Skaffa, Uppdatering).
+
+## 25. Version 1.0.1 efter avslaget, och en raderad byggfil
+
+- **Valt:** Versionen höjdes till 1.0.1, eftersom en ny zip-fil måste ha ett högre nummer än den som skickades in. Den gamla zip-filen (1.0.0) togs bort när den nya byggdes.
+- **Varför:** Butiken kräver ett högre versionsnummer vid varje uppladdning. Att den gamla filen togs bort var mitt misstag: regeln säger att ingenting raderas utan att fråga. Filen var en byggfil som går att återskapa.
+- **Tänk på:** Låt `bygg-zip.sh` lägga nya filer bredvid de gamla, och fråga innan något tas bort, även byggfiler.
